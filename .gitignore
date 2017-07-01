@@ -1,0 +1,4 @@
+build/*
+install/*
+xcode/*
+*.DS_Store
