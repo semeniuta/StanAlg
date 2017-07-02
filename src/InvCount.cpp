@@ -1,3 +1,4 @@
+#include <vector>
 #include "InvCount.h"
 
 template <class T>
@@ -9,9 +10,16 @@ void InvCount<T>::onCopyFromSecondHalf(int lo, int mid, int hi, int k, int i, in
 };
 
 template <class T>
-void InvCount<T>::sort(T* arr) {
+void InvCount<T>::sort(std::vector<T>* vec) {
 
-  this->a = arr;
+  this->pvec = vec;
+  this->size = vec->size();
+
+  if (!(this->aux == nullptr)) {
+    delete this->aux;
+  }
+  this->aux = new T[this->size];
+
   this->numInvTotal = sortAndInvCount(0, this->size-1);
 
 }

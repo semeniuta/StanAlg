@@ -18,6 +18,9 @@ target_link_libraries(invcount StanAlg)
 add_executable(mergesort "${SRC_APP_DIR}/mergesort.cpp" ${HEADERS})
 target_link_libraries(mergesort StanAlg)
 
+add_executable(playwithvectors "spikes/playwithvectors.cpp" ${HEADERS})
+target_link_libraries(playwithvectors StanAlg)
+
 install(TARGETS StanAlg DESTINATION lib)
 install(TARGETS invcount DESTINATION bin)
 install(FILES ${HEADERS} DESTINATION include)

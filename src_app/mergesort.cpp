@@ -5,17 +5,13 @@ using namespace std;
 
 int main() {
 
-  int a[5] = {4, 6, 2, 7, 1};
+  vector<int> a = {4, 6, 2, 7, 1};
 
-  //MergeSort<int>* ms = new MergeSort<int>(a, 5);
+  MergeSort <int> ms;
 
-  //delete ms;
+  ms.sort(&a);
 
-  MergeSort <int> ms (5);
-
-  ms.sort(a);
-
-  for (int i = 0; i < 5; i++) {
+  for (int i = 0; i < a.size(); i++) {
     cout << a[i] << " ";
   }
   cout << endl;

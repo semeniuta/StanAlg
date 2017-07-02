@@ -1,16 +1,18 @@
 #ifndef MERGESORT_H
 #define MERGESORT_H
 
+#include <vector>
+
 template <class T>
 class MergeSort {
 
   public:
-    MergeSort(int size);
+    MergeSort();
     ~MergeSort();
-    virtual void sort(T* arr);
+    virtual void sort(std::vector<T>* vec);
 
   protected:
-    T* a;
+    std::vector<T>* pvec;
     T* aux;
     int size;
 
@@ -21,6 +23,8 @@ class MergeSort {
 
   private:
     void sort(int lo, int hi);
+    T getVectorElement(int index);
+    void setVectorElement(int index, T val);
 
 };
 
