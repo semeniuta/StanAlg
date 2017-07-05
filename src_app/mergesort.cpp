@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include "MergeSort.h"
 
 using namespace std;

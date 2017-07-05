@@ -9,7 +9,7 @@ class QuickSort {
   public:
     QuickSort();
     ~QuickSort();
-    virtual void sort(std::vector<T>* vec);
+    virtual int sort(std::vector<T>* vec);
 
   protected:
     virtual int choosePivot(int lo, int hi);
@@ -17,7 +17,7 @@ class QuickSort {
   private:
     std::vector<T>* pvec;
 
-    void sort(int lo, int hi);
+    int sort(int lo, int hi);
     int partition(int lo, int hi);
     void swap(int i, int j);
 

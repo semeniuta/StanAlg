@@ -10,25 +10,31 @@ template <class T>
 QuickSort<T>::~QuickSort() { }
 
 template <class T>
-void QuickSort<T>::sort(std::vector<T>* vec) {
+int QuickSort<T>::sort(std::vector<T>* vec) {
   this->pvec = vec;
 
-  this->sort(0, this->pvec->size()-1);
+  int num_compares;
+  num_compares = this->sort(0, this->pvec->size()-1);
+
+  return num_compares;
 }
 
 template <class T>
-void QuickSort<T>::sort(int lo, int hi) {
+int QuickSort<T>::sort(int lo, int hi) {
 
   if (lo >= hi) {
-    return;
+    return 0;
   }
 
   int initial_pivot_index = this->choosePivot(lo, hi);
   this->swap(lo, initial_pivot_index);
   int pivot_index = this->partition(lo, hi);
 
-  this->sort(lo, pivot_index-1);
-  this->sort(pivot_index+1, hi);
+  int num_compares_1, num_compares_2;
+  num_compares_1 = this->sort(lo, pivot_index-1);
+  num_compares_2 = this->sort(pivot_index+1, hi);
+
+  return num_compares_1 + num_compares_2 + (hi - lo);
 
 }
 
