@@ -3,11 +3,11 @@
 
 using namespace std;
 
-int main() {
+int main(int argc, char* argv[]) {
 
   vector<int> a = {4, 6, 2, 7, 1};
 
-  MergeSort <int> ms;
+  MergeSort<int> ms;
 
   ms.sort(&a);
 
