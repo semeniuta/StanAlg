@@ -57,7 +57,43 @@ int QuickSort<T>::choosePivot(int lo, int hi) {
       } else {
         mid = lo + len / 2;
       }
-      return mid;
+      
+      T candidates[3] = {
+        this->getVectorElement(lo),
+        this->getVectorElement(mid),
+        this->getVectorElement(hi)
+      };
+      
+      int smallest_ind = 0;
+      int largest_ind = 0;
+      
+      for (int i = 0; i < 3; i++) {
+        
+        if (candidates[i] < candidates[smallest_ind]) {
+          smallest_ind = i;
+        }
+        
+        if (candidates[i] > candidates[largest_ind]) {
+          largest_ind = i;
+        }
+        
+      }
+      
+      int median = 0;
+      for (int i = 0; i < 3; i++) {
+        if (i != smallest_ind && i != largest_ind) {
+          median = i;
+          break;
+        }
+      }
+      
+      if (median == 0) {
+        return lo;
+      } else if (median == 1) {
+        return mid;
+      } else {
+        return hi;
+      }
       
     }
 

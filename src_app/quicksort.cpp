@@ -10,7 +10,7 @@ int main(int argc, char* argv[]) {
   
   FileReader fr;
   vector<int> numbers;
-  ChoosePivotRule cpr = first;
+  ChoosePivotRule cpr = medianOfThree;
   
   if (argc == 4) {
     
