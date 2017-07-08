@@ -24,6 +24,9 @@ target_link_libraries(invcount StanAlg ${Boost_LIBRARIES})
 add_executable(mergesort "${SRC_APP_DIR}/mergesort.cpp" ${HEADERS})
 target_link_libraries(mergesort StanAlg ${Boost_LIBRARIES})
 
+add_executable(quicksort "${SRC_APP_DIR}/quicksort.cpp" ${HEADERS})
+target_link_libraries(quicksort StanAlg)
+
 add_executable(playwithvectors "spikes/playwithvectors.cpp" ${HEADERS})
 target_link_libraries(playwithvectors StanAlg ${Boost_LIBRARIES})
 
