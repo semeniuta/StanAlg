@@ -2,8 +2,13 @@
 #include "QuickSort.h"
 
 template <class T>
-QuickSort<T>::QuickSort() {
+QuickSort<T>::QuickSort() : choose_pivot_rule(medianOfThree) {
   this->pvec = nullptr;
+}
+
+template <class T>
+QuickSort<T>::QuickSort(ChoosePivotRule cpr) {
+  this->choose_pivot_rule = cpr;
 }
 
 template <class T>
@@ -40,7 +45,27 @@ int QuickSort<T>::sort(int lo, int hi) {
 
 template <class T>
 int QuickSort<T>::choosePivot(int lo, int hi) {
-  return lo;
+
+  switch (this->choose_pivot_rule) {
+
+    case medianOfThree: {
+      int len = hi - lo + 1;
+      
+      int mid;
+      if (len % 2 == 0) {
+        mid = lo + len / 2 - 1;
+      } else {
+        mid = lo + len / 2;
+      }
+      return mid;
+      
+    }
+
+    case first: return lo;
+
+    case last: return hi;
+
+  }
 }
 
 template <class T>

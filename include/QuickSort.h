@@ -3,11 +3,14 @@
 
 #include <vector>
 
+enum ChoosePivotRule { first, last, medianOfThree };
+
 template <class T>
 class QuickSort {
 
   public:
     QuickSort();
+    QuickSort(ChoosePivotRule cpr);
     ~QuickSort();
     virtual int sort(std::vector<T>* vec);
 
@@ -16,6 +19,7 @@ class QuickSort {
 
   private:
     std::vector<T>* pvec;
+    ChoosePivotRule choose_pivot_rule;
 
     int sort(int lo, int hi);
     int partition(int lo, int hi);
