@@ -9,8 +9,9 @@ class FileReader {
   std::ifstream iFileStream;
 
   public:
-     FileReader(std::string fname);
+     FileReader();
      ~FileReader();
+     int open(std::string fname);
      std::string readLine();
      bool eof();
      bool fileExists();

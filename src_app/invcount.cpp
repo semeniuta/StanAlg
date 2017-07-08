@@ -2,38 +2,44 @@
 #include <vector>
 #include <string>
 #include "argtools.h"
+#include "FileReader.h"
 #include "InvCount.h"
 
 using namespace std;
 
-enum UserInput {from_file, from_stdin};
-
 int main(int argc, char* argv[]) {
 
-  // UserInput input;
-  // if (argc == 1) {
-  //   cout << "Reading data from stdin" << endl;
-  //   input = from_stdin;
-  // } else if (argc == 3) {
-  //   string input_flag = getArg(argc, argv, 1);
-  //   if (input_flag == "-f") {
-  //     string filename = getArg(argc, argv, 2);
-  //     cout << "Opening " << filename << endl;
-  //     input = from_file;
-  //   } else {
-  //
-  //   }
-  // }
+  FileReader fr;
+  vector<int> numbers;
 
-  vector<int> a = {10, 10, 4, 6, 2, 7, 1};
+  if (argc == 3) {
+    if (getArg(argc, argv, 1) == "-f") {
+      string fname = getArg(argc, argv, 2);
+
+      fr.open(fname);
+
+      string current_str;
+      int current_number;
+      while (!fr.eof()) {
+        current_str = fr.readLine();
+        if (current_str.length() != 0) {
+          current_number = atoi(current_str.c_str());
+          numbers.push_back(current_number);
+        }
+      }
+
+    }
+  } else {
+    numbers = {10, 4, 6, 2, 7, 1};
+  }
 
   InvCount <int>ic;
-  ic.sort(&a);
+  ic.sort(&numbers);
 
 
   cout << "The sorted array:" << endl;
-  for (int i = 0; i < a.size(); i++) {
-    cout << a[i] << " ";
+  for (int i = 0; i < numbers.size(); i++) {
+    cout << numbers[i] << " ";
   }
   cout << endl;
 

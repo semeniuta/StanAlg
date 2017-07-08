@@ -1,5 +1,8 @@
 #include <vector>
+#include <boost/multiprecision/cpp_int.hpp>
 #include "InvCount.h"
+
+namespace mp = boost::multiprecision;
 
 template <class T>
 void InvCount<T>::onCopyFromSecondHalf(int lo, int mid, int hi, int k, int i, int j) {
@@ -25,7 +28,7 @@ void InvCount<T>::sort(std::vector<T>* vec) {
 }
 
 template <class T>
-int InvCount<T>::sortAndInvCount(int lo, int hi) {
+mp::int128_t InvCount<T>::sortAndInvCount(int lo, int hi) {
 
   if (lo >= hi) {
     return 0;
@@ -33,20 +36,21 @@ int InvCount<T>::sortAndInvCount(int lo, int hi) {
 
   int mid = lo + (hi - lo) / 2;
 
-  int A = this->sortAndInvCount(lo, mid);
-  int B = this->sortAndInvCount(mid+1, hi);
+  mp::int128_t A = this->sortAndInvCount(lo, mid);
+  mp::int128_t B = this->sortAndInvCount(mid+1, hi);
 
   this->merge(lo, mid, hi);
 
-  int C = this->lastMergeNumInv;
+  mp::int128_t C = this->lastMergeNumInv;
   this->lastMergeNumInv = 0;
 
-  return A + B + C;
+  mp::int128_t this_sort_invcount = A + B + C;
+  return this_sort_invcount;
 
 }
 
 template <class T>
-int InvCount<T>::getNumberOfInversions() {
+mp::int128_t InvCount<T>::getNumberOfInversions() {
   return this->numInvTotal;
 }
 

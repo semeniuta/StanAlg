@@ -3,18 +3,23 @@
 #include <string>
 #include <iostream>
 
-FileReader::FileReader(std::string fname) {
+FileReader::FileReader() { }
+
+FileReader::~FileReader() {
+  iFileStream.close();
+}
+
+int FileReader::open(std::string fname) {
 
   const char* fname_cstr = fname.c_str();
 
   iFileStream.open(fname_cstr);
 
-  std::cout << "FileReader created" << " " << this->fileExists() << std::endl;
-}
+  if (this->fileExists()) {
+    std::cout << "File " << fname << " opened." << std::endl;
+  }
 
-FileReader::~FileReader() {
-  iFileStream.close();
-  std::cout << "FileReader destroyed\n";
+  return 0;
 }
 
 std::string FileReader::readLine() {
