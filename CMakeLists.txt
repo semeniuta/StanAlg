@@ -3,7 +3,6 @@ cmake_minimum_required(VERSION 3.1)
 project(StanfordAlgorithms)
 
 set(CMAKE_CXX_STANDARD 14)
-set(SRC_APP_DIR "src_app")
 
 set(Boost_USE_STATIC_LIBS ON)
 set(Boost_USE_MULTITHREADED ON)
@@ -15,24 +14,29 @@ include_directories("include")
 
 file(GLOB HEADERS "include/*.h" "include/*.hpp")
 file(GLOB SRC_LIB "src/*.c" "src/*.cpp")
+file(GLOB SRC_APP "src_app/*.c" "src_app/*.cpp")
+file(GLOB SRC_SPIKE "spikes/*.c" "spikes/*.cpp")
 
 add_library(StanAlg STATIC ${SRC_LIB} ${HEADERS})
 
-add_executable(invcount "${SRC_APP_DIR}/invcount.cpp" ${HEADERS})
-target_link_libraries(invcount StanAlg ${Boost_LIBRARIES})
+foreach(source_file_full ${SRC_APP})
+  get_filename_component(appname ${source_file_full} NAME_WE)
+  get_filename_component(source_file ${source_file_full} NAME)
+  add_executable(${appname} "src_app/${source_file}" ${HEADERS})
+  target_link_libraries(${appname} StanAlg ${Boost_LIBRARIES})
+endforeach()
 
-add_executable(mergesort "${SRC_APP_DIR}/mergesort.cpp" ${HEADERS})
-target_link_libraries(mergesort StanAlg ${Boost_LIBRARIES})
+foreach(source_file_full ${SRC_SPIKE})
+  get_filename_component(appname ${source_file_full} NAME_WE)
+  get_filename_component(source_file ${source_file_full} NAME)
+  add_executable(${appname} "spikes/${source_file}" ${HEADERS})
+  target_link_libraries(${appname} StanAlg ${Boost_LIBRARIES})
+endforeach()
 
-add_executable(quicksort "${SRC_APP_DIR}/quicksort.cpp" ${HEADERS})
-target_link_libraries(quicksort StanAlg)
+# How it was before:
+# add_executable(invcount "${SRC_APP_DIR}/invcount.cpp" ${HEADERS})
+# target_link_libraries(invcount StanAlg ${Boost_LIBRARIES})
 
-add_executable(playwithvectors "spikes/playwithvectors.cpp" ${HEADERS})
-target_link_libraries(playwithvectors StanAlg ${Boost_LIBRARIES})
-
-add_executable(playwithgraphs "spikes/playwithgraphs.cpp" ${HEADERS})
-target_link_libraries(playwithgraphs StanAlg ${Boost_LIBRARIES})
-
-install(TARGETS StanAlg DESTINATION lib)
-install(TARGETS invcount DESTINATION bin)
-install(FILES ${HEADERS} DESTINATION include)
+#install(TARGETS StanAlg DESTINATION lib)
+#install(TARGETS invcount DESTINATION bin)
+#install(FILES ${HEADERS} DESTINATION include)
