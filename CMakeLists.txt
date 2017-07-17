@@ -30,6 +30,9 @@ target_link_libraries(quicksort StanAlg)
 add_executable(playwithvectors "spikes/playwithvectors.cpp" ${HEADERS})
 target_link_libraries(playwithvectors StanAlg ${Boost_LIBRARIES})
 
+add_executable(playwithgraphs "spikes/playwithgraphs.cpp" ${HEADERS})
+target_link_libraries(playwithgraphs StanAlg ${Boost_LIBRARIES})
+
 install(TARGETS StanAlg DESTINATION lib)
 install(TARGETS invcount DESTINATION bin)
 install(FILES ${HEADERS} DESTINATION include)
