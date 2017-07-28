@@ -53,7 +53,7 @@ pair<int, int> Graph::edgeEndpoints(int edgeIndex) {
   return this->edges[edgeIndex];
 }
 
-int Graph::countVerticess() {
+int Graph::countVertices() {
   return num_vertices;
 }
 
@@ -80,6 +80,9 @@ int Graph::contractEdge(int edgeIndex) {
   }
 
   this->adj.erase(v_away);
+  this->edges.erase(edgeIndex);
+  this->num_vertices--;
+  this->num_edges--;
 
   for (AdjMapIterator itr = this->adj.begin(); itr != this->adj.end(); itr++) {
 
@@ -95,7 +98,7 @@ int Graph::contractEdge(int edgeIndex) {
     
     // remove self-loop
     v_adj.remove(v);
-
+    
   }
 
   return 0;
@@ -116,6 +119,14 @@ void Graph::printGraph() {
     cout << "]" << endl;
   }
 
+}
+
+void Graph::printEdges() {
+  
+  for (const pair<int, pair<int, int>>& el : this->edges) {
+    cout << el.first << ": (" << el.second.first << ", " << el.second.second << ")" << endl;
+  }
+  
 }
 
 bool Graph::vertexExists(int v) {

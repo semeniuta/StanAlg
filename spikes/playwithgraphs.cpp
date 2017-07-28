@@ -28,13 +28,24 @@ int main () {
 
   cout << "The original graph:" << endl;
   g.printGraph();
+  g.printEdges();
 
-  g.contractEdge(6);
-
-  pair<int, int> e = g.edgeEndpoints(6);
+  cout << "Num vertices: " << g.countVertices() << endl;
+  cout << "Num edges: " << g.countEdges() << endl;
+  
+  int edge_to_contract = 1;
+  pair<int, int> e = g.edgeEndpoints(edge_to_contract);
+  
+  g.contractEdge(edge_to_contract);
+  
   cout << "Graph after contracting " << e.first << " and " << e.second << endl;
+  
   g.printGraph();
-
+  g.printEdges();
+  
+  cout << "Num vertices: " << g.countVertices() << endl;
+  cout << "Num edges: " << g.countEdges() << endl;
+  
   return 0;
 
 

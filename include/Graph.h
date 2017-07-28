@@ -19,10 +19,11 @@ class Graph {
     int addEdge(int v, int w);
     list<int>::iterator adjacentEdges(int v);
     pair<int, int> edgeEndpoints(int edgeIndex);
-    int countVerticess();
+    int countVertices();
     int countEdges();
     int contractEdge(int edgeIndex);
     void printGraph();
+    void printEdges();
 
   private:
     map<int, list<int>> adj;
