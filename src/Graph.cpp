@@ -63,10 +63,9 @@ int Graph::countEdges() {
 
 int Graph::contractEdge(int edgeIndex) {
   // returns index of ... ?
-
-  if (edgeIndex < 0 || edgeIndex >= this->num_edges) {
-    cout << "Invalid edge index provided. Should be between " << 0 << " and "
-         << this->num_edges-1 << endl;
+  
+  if (this->edges.find(edgeIndex) == this->edges.end()) {
+    cout << "Invalid edge index provided" << endl;
     return -1;
   }
 
@@ -75,19 +74,35 @@ int Graph::contractEdge(int edgeIndex) {
   int v_keep = endpoints.first;
   int v_away = endpoints.second;
 
+  // copy the adjacency list from the vertex that go away
   for (const int& a : this->adj[v_away]) {
     this->adj[v_keep].push_back(a);
   }
-
   this->adj.erase(v_away);
   this->edges.erase(edgeIndex);
   this->num_vertices--;
-  this->num_edges--;
+  
+  // rename in edges map
+  for (const pair<int, pair<int, int>>& e : this->edges) {
+    int key = e.first;
+    int a = e.second.first;
+    int b = e.second.second;
+    
+    if (a == v_away) {
+      this->edges[key].first = v_keep;
+    }
+    
+    if (b == v_away) {
+      this->edges[key].second = v_keep;
+    }
+    
+  }
 
-  for (AdjMapIterator itr = this->adj.begin(); itr != this->adj.end(); itr++) {
+  int cycles_removed = 0;
+  for (AdjMapIterator ami = this->adj.begin(); ami != this->adj.end(); ami++) {
 
-    int v = itr->first;
-    list<int>& v_adj = itr->second;
+    int v = ami->first;
+    list<int>& v_adj = ami->second;
 
     // rename
     for (int& w : v_adj) {
@@ -97,10 +112,30 @@ int Graph::contractEdge(int edgeIndex) {
     }
     
     // remove self-loop
+    /*
+    int n_egdes_before = v_adj.size();
     v_adj.remove(v);
+    int n_egdes_after = v_adj.size();
+    int n_edges_removed = (n_egdes_before - n_egdes_after) / 2;
+    this->num_edges -= n_edges_removed;
+     */
+    
+    for (list<int>::iterator ptr_w = v_adj.begin(); ptr_w != v_adj.end(); /* No increment */) {
+      int w = *ptr_w;
+      
+      if (w == v) {
+        ptr_w = v_adj.erase(ptr_w);
+        cout << "Removing (" << v << ", " << w << ")" << endl;
+        cycles_removed++;
+      } else {
+        ptr_w++;
+      }
+    }
     
   }
-
+  
+  this->num_edges -= (cycles_removed / 2);
+  
   return 0;
 
 }
@@ -131,12 +166,10 @@ void Graph::printEdges() {
 
 bool Graph::vertexExists(int v) {
 
-  for (AdjMapIterator itr = this->adj.begin(); itr != this->adj.end(); itr++) {
-    if (itr->first == v) {
-      return true;
-    }
+  if (this->adj.find(v) == this->adj.end()) {
+    return false;
   }
 
-  return false;
+  return true;
 
 }

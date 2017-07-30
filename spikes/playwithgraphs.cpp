@@ -5,6 +5,24 @@
 
 using namespace std;
 
+void printGraphState(Graph* g) {
+  
+  g->printGraph();
+  cout << "Edges:" << endl;
+  g->printEdges();
+  
+  cout << "Num vertices: " << g->countVertices() << endl;
+  cout << "Num edges: " << g->countEdges() << endl;
+
+}
+
+void contractAndShow(Graph* g, int edgeToContract) {
+  pair<int, int> e = g->edgeEndpoints(edgeToContract);
+  g->contractEdge(edgeToContract);
+  cout << "Graph after contracting " << e.first << " and " << e.second << endl;
+  printGraphState(g);
+}
+
 int main () {
 
   Graph g;
@@ -27,24 +45,13 @@ int main () {
   }
 
   cout << "The original graph:" << endl;
-  g.printGraph();
-  g.printEdges();
-
-  cout << "Num vertices: " << g.countVertices() << endl;
-  cout << "Num edges: " << g.countEdges() << endl;
+  printGraphState(&g);
   
-  int edge_to_contract = 1;
-  pair<int, int> e = g.edgeEndpoints(edge_to_contract);
+  // Testing for wrong indices contraction
+  //g.contractEdge(40);
   
-  g.contractEdge(edge_to_contract);
-  
-  cout << "Graph after contracting " << e.first << " and " << e.second << endl;
-  
-  g.printGraph();
-  g.printEdges();
-  
-  cout << "Num vertices: " << g.countVertices() << endl;
-  cout << "Num edges: " << g.countEdges() << endl;
+  contractAndShow(&g, 1);
+  contractAndShow(&g, 7);
   
   return 0;
 
