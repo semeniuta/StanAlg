@@ -36,7 +36,9 @@ class Graph {
     int num_edges;
     bool vertexExists(int v);
     bool edgeExists(int edgeIndex);
-
+    void shrinkAdjOnContraction(int v_keep, int v_away);
+    void renameInEdgesMapOnContraction(int v_keep, int v_away);
+    void removeSelfLoopsAfterContraction(int v_keep, int v_away);
 };
 
 #endif
