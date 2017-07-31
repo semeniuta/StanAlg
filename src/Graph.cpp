@@ -18,7 +18,7 @@ void Graph::addVertex(int v) {
     return;
   }
 
-  this->adj[v] = list<int>();
+  this->adj[v] = list<AdjacentVertex>();
   this->num_vertices++;
 
 }
@@ -36,8 +36,8 @@ int Graph::addEdge(int v, int w) {
   int current_index = this->num_edges;
 
   this->edges[current_index] = pair<int, int>(v, w);
-  this->adj[v].push_back(w);
-  this->adj[w].push_back(v);
+  this->adj[v].push_back({w, current_index});
+  this->adj[w].push_back({v, current_index});
 
   this->num_edges++;
 
@@ -45,7 +45,7 @@ int Graph::addEdge(int v, int w) {
 
 }
 
-list<int>::iterator Graph::adjacentEdges(int v) {
+list<AdjacentVertex>::iterator Graph::adjacentEdges(int v) {
   return this->adj[v].begin();
 }
 
@@ -64,7 +64,7 @@ int Graph::countEdges() {
 int Graph::contractEdge(int edgeIndex) {
   // returns index of ... ?
   
-  if (this->edges.find(edgeIndex) == this->edges.end()) {
+  if (!this->edgeExists(edgeIndex)) {
     cout << "Invalid edge index provided" << endl;
     return -1;
   }
@@ -74,8 +74,8 @@ int Graph::contractEdge(int edgeIndex) {
   int v_keep = endpoints.first;
   int v_away = endpoints.second;
 
-  // copy the adjacency list from the vertex that go away
-  for (const int& a : this->adj[v_away]) {
+  // copy the adjacency list from the vertex that is going away
+  for (const AdjacentVertex& a : this->adj[v_away]) {
     this->adj[v_keep].push_back(a);
   }
   this->adj.erase(v_away);
@@ -102,30 +102,31 @@ int Graph::contractEdge(int edgeIndex) {
   for (AdjMapIterator ami = this->adj.begin(); ami != this->adj.end(); ami++) {
 
     int v = ami->first;
-    list<int>& v_adj = ami->second;
+    list<AdjacentVertex>& v_adj = ami->second;
 
     // rename
-    for (int& w : v_adj) {
-      if (w == v_away) {
-        w = v_keep;
+    for (AdjacentVertex& a : v_adj) {
+      if (a.w == v_away) {
+        a.w = v_keep;
       }
     }
     
     // remove self-loop
-    /*
-    int n_egdes_before = v_adj.size();
-    v_adj.remove(v);
-    int n_egdes_after = v_adj.size();
-    int n_edges_removed = (n_egdes_before - n_egdes_after) / 2;
-    this->num_edges -= n_edges_removed;
-     */
-    
-    for (list<int>::iterator ptr_w = v_adj.begin(); ptr_w != v_adj.end(); /* No increment */) {
-      int w = *ptr_w;
+    for (list<AdjacentVertex>::iterator ptr_w = v_adj.begin(); ptr_w != v_adj.end(); /* No increment */) {
+      
+      int w = ptr_w->w;
       
       if (w == v) {
+        
+        int edge_index_to_remove = ptr_w->edgeIndex;
+        if (this->edgeExists(edge_index_to_remove)) {
+          cout << "Removing edge index " << edge_index_to_remove << endl;
+          this->edges.erase(edge_index_to_remove);
+        }
+        
         ptr_w = v_adj.erase(ptr_w);
         cout << "Removing (" << v << ", " << w << ")" << endl;
+        
         cycles_removed++;
       } else {
         ptr_w++;
@@ -144,9 +145,9 @@ void Graph::printGraph() {
 
   for (AdjMapIterator itr = this->adj.begin(); itr != this->adj.end(); itr++) {
     cout << itr->first << ": [";
-    list<int> adj_list = itr->second;
-    for (list<int>::iterator ptr_adj = adj_list.begin(); ptr_adj != adj_list.end(); ptr_adj++) {
-      cout << *ptr_adj;
+    list<AdjacentVertex> adj_list = itr->second;
+    for (list<AdjacentVertex>::iterator ptr_adj = adj_list.begin(); ptr_adj != adj_list.end(); ptr_adj++) {
+      cout << ptr_adj->w;
       if (!(ptr_adj == prev(adj_list.end(), 1))) {
          cout << ", ";
       }
@@ -162,6 +163,15 @@ void Graph::printEdges() {
     cout << el.first << ": (" << el.second.first << ", " << el.second.second << ")" << endl;
   }
   
+}
+
+bool Graph::edgeExists(int edgeIndex) {
+  
+  if (this->edges.find(edgeIndex) == this->edges.end()) {
+    return false;
+  }
+  
+  return true;
 }
 
 bool Graph::vertexExists(int v) {

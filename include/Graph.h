@@ -7,8 +7,12 @@
 
 using namespace std;
 
-typedef map<int, list<int>>::iterator AdjMapIterator;
-typedef map<int, pair<int, int>>::iterator EdgesMapIterator;
+struct AdjacentVertex {
+  int w;
+  int edgeIndex;
+};
+
+typedef map<int, list<AdjacentVertex>>::iterator AdjMapIterator;
 
 class Graph {
 
@@ -17,20 +21,21 @@ class Graph {
     ~Graph();
     void addVertex(int v);
     int addEdge(int v, int w);
-    list<int>::iterator adjacentEdges(int v);
+    list<AdjacentVertex>::iterator adjacentEdges(int v);
     pair<int, int> edgeEndpoints(int edgeIndex);
     int countVertices();
     int countEdges();
     int contractEdge(int edgeIndex);
     void printGraph();
     void printEdges();
-
+ 
   private:
-    map<int, list<int>> adj;
+    map<int, list<AdjacentVertex>> adj;
     map<int, pair<int, int>> edges;
     int num_vertices;
     int num_edges;
     bool vertexExists(int v);
+    bool edgeExists(int edgeIndex);
 
 };
 
