@@ -45,10 +45,6 @@ int Graph::addEdge(int v, int w) {
 
 }
 
-list<AdjacentVertex>::iterator Graph::adjacentEdges(int v) {
-  return this->adj[v].begin();
-}
-
 pair<int, int> Graph::edgeEndpoints(int edgeIndex) {
   return this->edges[edgeIndex];
 }
@@ -81,6 +77,22 @@ int Graph::contractEdge(int edgeIndex) {
   
   return 0;
 
+}
+
+AdjMapIterator Graph::adjMapBegin() {
+  return this->adj.begin();
+}
+
+AdjMapIterator Graph::adjMapEnd() {
+  return this->adj.end();
+}
+
+EdgesMapIterator Graph::edgesMapBegin() {
+  return this->edges.begin();
+}
+
+EdgesMapIterator Graph::edgesMapEnd() {
+  return this->edges.end();
 }
 
 void Graph::printGraph() {

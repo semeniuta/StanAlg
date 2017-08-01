@@ -13,15 +13,20 @@ struct AdjacentVertex {
 };
 
 typedef map<int, list<AdjacentVertex>>::iterator AdjMapIterator;
+typedef map<int, pair<int, int>>::iterator EdgesMapIterator;
 
 class Graph {
 
   public:
     Graph();
+    Graph(const Graph& other);
     ~Graph();
     void addVertex(int v);
     int addEdge(int v, int w);
-    list<AdjacentVertex>::iterator adjacentEdges(int v);
+    AdjMapIterator adjMapBegin();
+    AdjMapIterator adjMapEnd();
+    EdgesMapIterator edgesMapBegin();
+    EdgesMapIterator edgesMapEnd();
     pair<int, int> edgeEndpoints(int edgeIndex);
     int countVertices();
     int countEdges();
