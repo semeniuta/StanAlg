@@ -3,41 +3,53 @@
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
+#include <set>
+#include <vector>
 
 using namespace std;
 
 RandomContraction::RandomContraction(Graph* g) {
   
   this->originalGraph = g;
-  this->contractedGraph = Graph();
-  
-  this->copyGraph();
-  
-  srand(time(nullptr));
-  while(this->contractedGraph.countVertices() > 2) {
-    
-    int num_edges = contractedGraph.countEdges();
-    int random_number = rand() % num_edges;
-    
-    auto edge_itr = next(this->contractedGraph.edgesMapBegin(), random_number);
-    int edge_to_contract_index = edge_itr->first;
-    
-    this->contractedGraph.contractEdge(edge_to_contract_index);
-  }
-  
-  cout << "# edges: " << this->contractedGraph.countEdges() << endl;
-  
-  return;
-  
+
 }
 
 RandomContraction::~RandomContraction() { }
 
-void RandomContraction::copyGraph() {
+int RandomContraction::doContraction() {
+  
+  Graph cg;
+  
+  this->copyGraph(&cg);
+  
+  while(cg.countVertices() > 2) {
+    
+    int num_edges = cg.countEdges();
+    int random_number = rand() % num_edges;
+    
+    auto edge_itr = next(cg.edgesMapBegin(), random_number);
+    int edge_to_contract_index = edge_itr->first;
+    
+    cg.contractEdge(edge_to_contract_index);
+  }
+
+  // can be useful; works correctly, but doesn't get returned
+  vector<pair<int, int>> original_edges;
+  for (EdgesMapIterator e_ptr = cg.edgesMapBegin(); e_ptr != cg.edgesMapEnd(); e_ptr++) {
+    int edge_index = e_ptr->first;
+    original_edges.push_back(this->originalGraph->edgeEndpoints(edge_index));
+  }
+  
+  return cg.countEdges();
+  
+  
+}
+
+void RandomContraction::copyGraph(Graph* targetGraph) {
   
   for (int i = 0; i < this->originalGraph->countEdges(); i++) {
     pair<int, int> endpoints = this->originalGraph->edgeEndpoints(i);
-    this->contractedGraph.addEdge(endpoints.first, endpoints.second);
+    targetGraph->addEdge(endpoints.first, endpoints.second);
   }
   
 }

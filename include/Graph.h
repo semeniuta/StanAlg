@@ -27,6 +27,7 @@ class Graph {
     AdjMapIterator adjMapEnd();
     EdgesMapIterator edgesMapBegin();
     EdgesMapIterator edgesMapEnd();
+    list<AdjacentVertex> getListofAdjacentVertices(int v);
     pair<int, int> edgeEndpoints(int edgeIndex);
     int countVertices();
     int countEdges();
@@ -41,6 +42,7 @@ class Graph {
     int num_edges;
     bool vertexExists(int v);
     bool edgeExists(int edgeIndex);
+    bool edgeExists(int v, int w);
     void shrinkAdjOnContraction(int v_keep, int v_away);
     void renameInEdgesMapOnContraction(int v_keep, int v_away);
     void removeSelfLoopsAfterContraction(int v_keep, int v_away);

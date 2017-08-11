@@ -32,7 +32,11 @@ int Graph::addEdge(int v, int w) {
   if (!this->vertexExists(w)) {
     this->addVertex(w);
   }
-
+  
+  if (this->edgeExists(v, w)) {
+    return -1;
+  }
+  
   int current_index = this->num_edges;
 
   this->edges[current_index] = pair<int, int>(v, w);
@@ -77,6 +81,13 @@ int Graph::contractEdge(int edgeIndex) {
   
   return 0;
 
+}
+
+list<AdjacentVertex> Graph::getListofAdjacentVertices(int v) {
+  
+  list<AdjacentVertex> adj_list = this->adj[v];
+  return adj_list;
+  
 }
 
 AdjMapIterator Graph::adjMapBegin() {
@@ -136,6 +147,27 @@ bool Graph::vertexExists(int v) {
 
   return true;
 
+}
+
+bool Graph::edgeExists(int v, int w) {
+  
+  if (!this->vertexExists(v)) return false;
+  
+  //if (find(this->adj[v].begin(), this->adj[v].end(), w) != this->adj[v].end()) {
+  //  return true;
+  //}
+  
+  bool exists = false;
+  for (list<AdjacentVertex>::iterator itr = this->adj[v].begin(); itr != this->adj[v].end(); itr++) {
+    if (itr->w == w) {
+      exists = true;
+      break;
+    }
+  }
+  
+  return exists;
+  
+  
 }
 
 void Graph::shrinkAdjOnContraction(int v_keep, int v_away) {

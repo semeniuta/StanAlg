@@ -40,6 +40,8 @@ void read_graph_from_file(FileReader* fr, Graph* g) {
 }
 
 int main(int argc, char *argv[]) {
+  
+  srand(time(nullptr));
 
   Graph g;
   
@@ -80,6 +82,18 @@ int main(int argc, char *argv[]) {
   }
   
   RandomContraction rc(&g);
+  
+  int nc;
+  int nc_min = g.countEdges();
+  for (int i = 0; i < 200; i++) {
+    cout << nc << " ";
+    nc = rc.doContraction();
+    if (nc < nc_min) {
+      nc_min = nc;
+    }
+  }
+  
+  cout << "\nMin cut size: " << nc_min << endl;
 
   return 0;
 }
