@@ -31,11 +31,10 @@ class Graph {
     pair<int, int> edgeEndpoints(int edgeIndex);
     int countVertices();
     int countEdges();
-    int contractEdge(int edgeIndex);
     void printGraph();
     void printEdges();
- 
-  private:
+  
+  protected:
     map<int, list<AdjacentVertex>> adj;
     map<int, pair<int, int>> edges;
     int num_vertices;
@@ -43,9 +42,7 @@ class Graph {
     bool vertexExists(int v);
     bool edgeExists(int edgeIndex);
     bool edgeExists(int v, int w);
-    void shrinkAdjOnContraction(int v_keep, int v_away);
-    void renameInEdgesMapOnContraction(int v_keep, int v_away);
-    void removeSelfLoopsAfterContraction(int v_keep, int v_away);
+
 };
 
 #endif

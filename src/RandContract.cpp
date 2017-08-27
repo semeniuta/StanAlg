@@ -1,4 +1,5 @@
 #include "RandContract.h"
+#include "ContractableGraph.h"
 #include <iterator>
 #include <iostream>
 #include <stdlib.h>
@@ -8,7 +9,7 @@
 
 using namespace std;
 
-RandomContraction::RandomContraction(Graph* g) {
+RandomContraction::RandomContraction(ContractableGraph* g) {
   
   this->originalGraph = g;
 
@@ -18,7 +19,7 @@ RandomContraction::~RandomContraction() { }
 
 int RandomContraction::doContraction() {
   
-  Graph cg;
+  ContractableGraph cg;
   
   this->copyGraph(&cg);
   
@@ -45,7 +46,7 @@ int RandomContraction::doContraction() {
   
 }
 
-void RandomContraction::copyGraph(Graph* targetGraph) {
+void RandomContraction::copyGraph(ContractableGraph* targetGraph) {
   
   for (int i = 0; i < this->originalGraph->countEdges(); i++) {
     pair<int, int> endpoints = this->originalGraph->edgeEndpoints(i);

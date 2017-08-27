@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
   
   srand(time(nullptr));
 
-  Graph g;
+  ContractableGraph g;
   
   if (argc == 3) {
   

@@ -1,20 +1,20 @@
 #ifndef RANDCONTRACT_H
 #define RANDCONTRACT_H
 
-#include "Graph.h"
+#include "ContractableGraph.h"
 #include <set>
 
 class RandomContraction {
 
 public:
-  RandomContraction(Graph* g);
+  RandomContraction(ContractableGraph* g);
   ~RandomContraction();
   int doContraction();
   
   
 private:
-  Graph* originalGraph;
-  void copyGraph(Graph* targetGraph);
+  ContractableGraph* originalGraph;
+  void copyGraph(ContractableGraph* targetGraph);
   
 };
 
