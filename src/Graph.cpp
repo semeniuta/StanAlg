@@ -40,13 +40,17 @@ int Graph::addEdge(int v, int w) {
   int current_index = this->num_edges;
 
   this->edges[current_index] = pair<int, int>(v, w);
-  this->adj[v].push_back({w, current_index});
-  this->adj[w].push_back({v, current_index});
+  this->addAdjacencyInfo(v, w, current_index);
 
   this->num_edges++;
 
   return current_index;
 
+}
+
+void Graph::addAdjacencyInfo(int v, int w, int edgeIndex) {
+  this->adj[v].push_back({w, edgeIndex});
+  this->adj[w].push_back({v, edgeIndex});
 }
 
 pair<int, int> Graph::edgeEndpoints(int edgeIndex) {
