@@ -53,7 +53,7 @@ void Graph::addAdjacencyInfo(int v, int w, int edgeIndex) {
   this->adj[w].push_back({v, edgeIndex});
 }
 
-pair<int, int> Graph::edgeEndpoints(int edgeIndex) {
+pair<int, int>& Graph::edgeEndpoints(int edgeIndex) {
   return this->edges[edgeIndex];
 }
 
@@ -65,9 +65,9 @@ int Graph::countEdges() {
   return num_edges;
 }
 
-list<AdjacentVertex> Graph::getListofAdjacentVertices(int v) {
+list<AdjacentVertex>& Graph::getListofAdjacentVertices(int v) {
   
-  list<AdjacentVertex> adj_list = this->adj[v];
+  list<AdjacentVertex>& adj_list = this->adj[v];
   return adj_list;
   
 }

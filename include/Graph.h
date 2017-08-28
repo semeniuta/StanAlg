@@ -27,8 +27,8 @@ class Graph {
     AdjMapIterator adjMapEnd();
     EdgesMapIterator edgesMapBegin();
     EdgesMapIterator edgesMapEnd();
-    list<AdjacentVertex> getListofAdjacentVertices(int v);
-    pair<int, int> edgeEndpoints(int edgeIndex);
+    list<AdjacentVertex>& getListofAdjacentVertices(int v);
+    pair<int, int>& edgeEndpoints(int edgeIndex);
     int countVertices();
     int countEdges();
     void printGraph();

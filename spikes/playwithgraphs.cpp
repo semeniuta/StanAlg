@@ -1,4 +1,4 @@
-#include "Graph.h"
+#include "ContractableGraph.h"
 #include <iostream>
 #include <vector>
 #include <map>
@@ -6,17 +6,17 @@
 using namespace std;
 
 void printGraphState(Graph* g) {
-  
+
   g->printGraph();
   cout << "Edges:" << endl;
   g->printEdges();
-  
+
   cout << "Num vertices: " << g->countVertices() << endl;
   cout << "Num edges: " << g->countEdges() << endl;
 
 }
 
-void contractAndShow(Graph* g, int edgeToContract) {
+void contractAndShow(ContractableGraph* g, int edgeToContract) {
   pair<int, int> e = g->edgeEndpoints(edgeToContract);
   g->contractEdge(edgeToContract);
   cout << "Graph after contracting " << e.first << " and " << e.second << endl;
@@ -25,7 +25,7 @@ void contractAndShow(Graph* g, int edgeToContract) {
 
 int main () {
 
-  Graph g;
+  ContractableGraph g;
 
   vector<pair<int, int>> edges = {
     pair<int, int>(1, 2),
@@ -46,13 +46,13 @@ int main () {
 
   cout << "The original graph:" << endl;
   printGraphState(&g);
-  
+
   // Testing for wrong indices contraction
   //g.contractEdge(40);
-  
+
   contractAndShow(&g, 1);
   contractAndShow(&g, 7);
-  
+
   return 0;
 
 
