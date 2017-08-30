@@ -32,11 +32,11 @@ int Graph::addEdge(int v, int w) {
   if (!this->vertexExists(w)) {
     this->addVertex(w);
   }
-  
+
   if (this->edgeExists(v, w)) {
     return -1;
   }
-  
+
   int current_index = this->num_edges;
 
   this->edges[current_index] = pair<int, int>(v, w);
@@ -66,10 +66,10 @@ int Graph::countEdges() {
 }
 
 list<AdjacentVertex>& Graph::getListofAdjacentVertices(int v) {
-  
+
   list<AdjacentVertex>& adj_list = this->adj[v];
   return adj_list;
-  
+
 }
 
 AdjMapIterator Graph::adjMapBegin() {
@@ -105,19 +105,19 @@ void Graph::printGraph() {
 }
 
 void Graph::printEdges() {
-  
+
   for (const pair<int, pair<int, int>>& el : this->edges) {
     cout << el.first << ": (" << el.second.first << ", " << el.second.second << ")" << endl;
   }
-  
+
 }
 
 bool Graph::edgeExists(int edgeIndex) {
-  
+
   if (this->edges.find(edgeIndex) == this->edges.end()) {
     return false;
   }
-  
+
   return true;
 }
 
@@ -132,9 +132,9 @@ bool Graph::vertexExists(int v) {
 }
 
 bool Graph::edgeExists(int v, int w) {
-  
+
   if (!this->vertexExists(v)) return false;
-  
+
   bool exists = false;
   for (list<AdjacentVertex>::iterator itr = this->adj[v].begin(); itr != this->adj[v].end(); itr++) {
     if (itr->w == w) {
@@ -142,8 +142,7 @@ bool Graph::edgeExists(int v, int w) {
       break;
     }
   }
-  
+
   return exists;
 
 }
-

@@ -33,11 +33,11 @@ class Graph {
     int countEdges();
     void printGraph();
     void printEdges();
-  
+
   protected:
     map<int, list<AdjacentVertex>> adj;
     map<int, pair<int, int>> edges;
-    void addAdjacencyInfo(int v, int w, int edgeIndex);
+    virtual void addAdjacencyInfo(int v, int w, int edgeIndex);
     int num_vertices;
     int num_edges;
     bool vertexExists(int v);

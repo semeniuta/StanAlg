@@ -6,8 +6,8 @@
 class Digraph : public Graph {
 
 protected:
-  void addAdjacencyInfo(int v, int w, int edgeIndex);
-  
+    virtual void addAdjacencyInfo(int v, int w, int edgeIndex);
+
 };
 
 #endif
