@@ -1,5 +1,6 @@
 #include "Digraph.h"
 #include "Graph.h"
+#include "DFS.h"
 #include <iostream>
 #include <vector>
 #include <map>
@@ -44,5 +45,12 @@ int main() {
     cout << "The original graph:" << endl;
     printGraphState(&g);
 
+    cout << "DFS (on entry):" << endl;
+    DFSOnEntryPrinter dfs_entry(&g);
+    dfs_entry.searchFrom(1);
+
+    cout << "DFS (on exit):" << endl;
+    DFSOnExitPrinter dfs_exit(&g);
+    dfs_exit.searchFrom(1);
 
 }
