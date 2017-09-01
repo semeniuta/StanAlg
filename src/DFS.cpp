@@ -31,3 +31,22 @@ void DFS::searchFrom(int startVertex) {
     this->onExit(startVertex);
 
 }
+
+void DFSDirected::reverseSearchFrom(int startVertex) {
+
+    this->onEntry(startVertex);
+
+    this->explored[startVertex] = true;
+
+    list<AdjacentVertex>& adj_rev = this->graph->getListOfReverseAdjacentVertices(startVertex);
+
+    for (AdjacentVertex& src_neighbor : adj_rev) {
+        int prev_vertex = src_neighbor.w;
+        if (!this->explored[prev_vertex]) {
+            this->searchFrom(prev_vertex);
+        }
+    }
+
+    this->onExit(startVertex);
+
+}

@@ -2,6 +2,7 @@
 #define DFS_H
 
 #include "Graph.h"
+#include "Digraph.h"
 #include <map>
 #include <iostream>
 
@@ -10,7 +11,7 @@ class DFS {
 public:
 
     DFS(Graph* g);
-    void searchFrom(int startVertex);
+    virtual void searchFrom(int startVertex);
 
 protected:
 
@@ -22,10 +23,24 @@ protected:
 
 };
 
+class DFSDirected : public DFS {
+
+public:
+
+    DFSDirected(Digraph* g) : DFS(g) { }
+    virtual void reverseSearchFrom(int startVertex);
+
+protected:
+
+    Digraph* graph;
+
+};
+
 
 class DFSOnEntryPrinter : public DFS {
 
 public:
+
     DFSOnEntryPrinter(Graph* g) : DFS(g) { }
 
 protected:
@@ -39,6 +54,7 @@ protected:
 class DFSOnExitPrinter : public DFS {
 
 public:
+
     DFSOnExitPrinter(Graph* g) : DFS(g) { }
 
 protected:
