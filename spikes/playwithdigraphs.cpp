@@ -7,16 +7,22 @@
 
 using namespace std;
 
-void printGraphState(Graph* g) {
+class MyDFSDirected : public DFSDirected {
 
-  g->printGraph();
-  cout << "Edges:" << endl;
-  g->printEdges();
+public:
 
-  cout << "Num vertices: " << g->countVertices() << endl;
-  cout << "Num edges: " << g->countEdges() << endl;
+    MyDFSDirected(Digraph* g) : DFSDirected(g) { }
 
-}
+protected:
+
+    virtual void onEntry(int startVertex) {
+        std::cout << startVertex << std::endl;
+    }
+
+    virtual void onExit(int startVertex) {
+        std::cout << "\t" << startVertex << std::endl;
+    }
+};
 
 int main() {
 
@@ -36,21 +42,22 @@ int main() {
 
     };
 
-    cout << "Adding edge pairs:" << endl;
     for (const pair<int, int>& p : edges) {
-      cout << p.first << ", " << p.second << endl;
       g.addEdge(p.first, p.second);
     }
 
     cout << "The original graph:" << endl;
-    printGraphState(&g);
+    g.printGraph();
 
-    cout << "DFS (on entry):" << endl;
-    DFSOnEntryPrinter dfs_entry(&g);
-    dfs_entry.searchFrom(1);
+    cout << "The reversed graph:" << endl;
+    g.printReversedGraph();
 
-    cout << "DFS (on exit):" << endl;
-    DFSOnExitPrinter dfs_exit(&g);
-    dfs_exit.searchFrom(1);
+    cout << "DFS" << endl;
+    MyDFSDirected dfs1(&g);
+    dfs1.searchFrom(1);
+
+    cout << "DFS (reverse):" << endl;
+    MyDFSDirected dfs2(&g);
+    dfs2.reverseSearchFrom(7);
 
 }

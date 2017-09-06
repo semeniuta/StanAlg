@@ -8,6 +8,7 @@ class Digraph : public Graph {
 public:
 
     list<AdjacentVertex>& getListOfReverseAdjacentVertices(int v);
+    void printReversedGraph();
 
 protected:
 

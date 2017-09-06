@@ -43,6 +43,7 @@ class Graph {
     bool vertexExists(int v);
     bool edgeExists(int edgeIndex);
     bool edgeExists(int v, int w);
+    void printAdj(map<int, list<AdjacentVertex>>& adj_map);
 
 };
 

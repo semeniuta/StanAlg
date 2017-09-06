@@ -88,19 +88,25 @@ EdgesMapIterator Graph::edgesMapEnd() {
   return this->edges.end();
 }
 
+void Graph::printAdj(map<int, list<AdjacentVertex>>& adj_map) {
+
+    for (AdjMapIterator itr = adj_map.begin(); itr != adj_map.end(); itr++) {
+      cout << itr->first << ": [";
+      list<AdjacentVertex> adj_list = itr->second;
+      for (list<AdjacentVertex>::iterator ptr_adj = adj_list.begin(); ptr_adj != adj_list.end(); ptr_adj++) {
+        cout << ptr_adj->w;
+        if (!(ptr_adj == prev(adj_list.end(), 1))) {
+           cout << ", ";
+        }
+      }
+      cout << "]" << endl;
+    }
+
+}
+
 void Graph::printGraph() {
 
-  for (AdjMapIterator itr = this->adj.begin(); itr != this->adj.end(); itr++) {
-    cout << itr->first << ": [";
-    list<AdjacentVertex> adj_list = itr->second;
-    for (list<AdjacentVertex>::iterator ptr_adj = adj_list.begin(); ptr_adj != adj_list.end(); ptr_adj++) {
-      cout << ptr_adj->w;
-      if (!(ptr_adj == prev(adj_list.end(), 1))) {
-         cout << ", ";
-      }
-    }
-    cout << "]" << endl;
-  }
+  this->printAdj(this->adj);
 
 }
 

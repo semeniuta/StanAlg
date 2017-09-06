@@ -30,39 +30,8 @@ public:
     DFSDirected(Digraph* g) : DFS(g) { }
     virtual void reverseSearchFrom(int startVertex);
 
-protected:
-
-    Digraph* graph;
-
 };
 
-
-class DFSOnEntryPrinter : public DFS {
-
-public:
-
-    DFSOnEntryPrinter(Graph* g) : DFS(g) { }
-
-protected:
-
-    virtual void onEntry(int startVertex) {
-        std::cout << startVertex << std::endl;
-    }
-};
-
-
-class DFSOnExitPrinter : public DFS {
-
-public:
-
-    DFSOnExitPrinter(Graph* g) : DFS(g) { }
-
-protected:
-
-    virtual void onExit(int startVertex) {
-        std::cout << startVertex << std::endl;
-    }
-};
 
 
 #endif

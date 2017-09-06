@@ -12,3 +12,9 @@ list<AdjacentVertex>& Digraph::getListOfReverseAdjacentVertices(int v) {
     return adj_list_rev;
 
 }
+
+void Digraph::printReversedGraph() {
+
+    this->printAdj(this->adjReverse);
+
+}
