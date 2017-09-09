@@ -78,4 +78,10 @@ int main() {
     cout << "Finishing times map:" << endl;
     printMap(f);
 
+    map<int, int> leaders;
+    kosarajuDetermineLeaders(&graph_ftimes, leaders);
+
+    cout << "Leaders:" << endl;
+    printMap(leaders);
+
 }

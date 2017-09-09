@@ -5,7 +5,7 @@
 
 using namespace std;
 
-void kosarajuComputeFinishingTimes(Digraph* g, Digraph* resG, map<int, int>& f) {
+void kosarajuComputeFinishingTimes(Digraph* g, Digraph* graphF, map<int, int>& f) {
 
     vector<int> vertices_desc;
     g->getVerticesVector(vertices_desc, false);
@@ -26,9 +26,27 @@ void kosarajuComputeFinishingTimes(Digraph* g, Digraph* resG, map<int, int>& f) 
         v = itr->second.first;
         w = itr->second.second;
 
-        resG->addEdge(f[v], f[w]);
+        graphF->addEdge(f[v], f[w]);
     }
 
+}
 
+void kosarajuDetermineLeaders(Digraph* graphF, map<int, int>& leaderMap) {
+
+    vector<int> vertices_desc;
+    graphF->getVerticesVector(vertices_desc, false);
+
+    int s;
+
+    DFSKosarajuLeaders dfs_lead(graphF, &s, leaderMap);
+
+    for (int& v : vertices_desc) {
+
+        if (!dfs_lead.isExplored(v)) {
+            s = v;
+            dfs_lead.searchFrom(v);
+        }
+
+    }
 
 }
