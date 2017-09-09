@@ -2,19 +2,27 @@
 #define KOSARAJU_H
 
 #include "DFS.h"
+#include "Digraph.h"
+#include <map>
 
-class KosarajuDFS : public DFS {
+class DFSKosarajuFinishingTimes : public DFSDirected {
 
 public:
-    KosarajuDFS(Graph* g) : DFS(g) { }
-    //void searchFromWithLeader(int startVertex, int leaderVertex);
+
+    DFSKosarajuFinishingTimes(Digraph* g, int* t, map<int, int>& f) : DFSDirected(g), tPtr(t), finishingTimes(f) { }
+
+    map<int, int>& getFinishingTimes() { return this->finishingTimes; }
 
 protected:
-    virtual void onEntry(int startVertex) { /*TODO */ }
-    virtual void onExit(int startVertex) { /*TODO */ }
+
+    virtual void onExit(int startVertex) {
+        this->finishingTimes[startVertex] = ++(*(this->tPtr));
+    }
 
 private:
-    map<int, int> leader;
+
+    int* tPtr;
+    map<int, int>& finishingTimes;
 
 };
 

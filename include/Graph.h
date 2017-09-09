@@ -3,6 +3,7 @@
 
 #include <list>
 #include <map>
+#include <vector>
 #include <utility>
 
 using namespace std;
@@ -27,6 +28,7 @@ class Graph {
     AdjMapIterator adjMapEnd();
     EdgesMapIterator edgesMapBegin();
     EdgesMapIterator edgesMapEnd();
+    void getVerticesVector(vector<int>& vertices, bool ascending = true);
     list<AdjacentVertex>& getListofAdjacentVertices(int v);
     pair<int, int>& edgeEndpoints(int edgeIndex);
     int countVertices();

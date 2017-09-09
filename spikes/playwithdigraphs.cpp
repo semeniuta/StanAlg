@@ -1,6 +1,7 @@
 #include "Digraph.h"
 #include "Graph.h"
 #include "DFS.h"
+#include "printutils.h"
 #include <iostream>
 #include <vector>
 #include <map>
@@ -48,6 +49,11 @@ int main() {
 
     cout << "The original graph:" << endl;
     g.printGraph();
+
+    cout << "Vertices:" << endl;
+    vector<int> vertices;
+    g.getVerticesVector(vertices, false);
+    printVector(vertices, vertices.size());
 
     cout << "The reversed graph:" << endl;
     g.printReversedGraph();

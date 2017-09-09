@@ -65,6 +65,25 @@ int Graph::countEdges() {
   return num_edges;
 }
 
+void Graph::getVerticesVector(vector<int>& vertices, bool ascending) {
+
+    if (ascending) {
+
+        for (auto itr = this->adj.begin(); itr != this->adj.end(); itr++) {
+            vertices.push_back(itr->first);
+        }
+
+    } else {
+
+        for (auto itr = this->adj.rbegin(); itr != this->adj.rend(); itr++) {
+            vertices.push_back(itr->first);
+        }
+
+    }
+
+
+}
+
 list<AdjacentVertex>& Graph::getListofAdjacentVertices(int v) {
 
   list<AdjacentVertex>& adj_list = this->adj[v];
