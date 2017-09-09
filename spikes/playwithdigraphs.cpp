@@ -1,6 +1,7 @@
 #include "Digraph.h"
 #include "Graph.h"
 #include "DFS.h"
+#include "Kosaraju.h"
 #include "printutils.h"
 #include <iostream>
 #include <vector>
@@ -53,7 +54,7 @@ int main() {
     cout << "Vertices:" << endl;
     vector<int> vertices;
     g.getVerticesVector(vertices, false);
-    printVector(vertices, vertices.size());
+    printVector(vertices);
 
     cout << "The reversed graph:" << endl;
     g.printReversedGraph();
@@ -65,5 +66,16 @@ int main() {
     cout << "DFS (reverse):" << endl;
     MyDFSDirected dfs2(&g);
     dfs2.reverseSearchFrom(7);
+
+    map<int, int> f;
+    Digraph graph_ftimes;
+
+    kosarajuComputeFinishingTimes(&g, &graph_ftimes, f);
+
+    cout << "Graph of finishing times" << endl;
+    graph_ftimes.printGraph();
+
+    cout << "Finishing times map:" << endl;
+    printMap(f);
 
 }

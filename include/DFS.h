@@ -12,6 +12,7 @@ public:
 
     DFS(Graph* g);
     virtual void searchFrom(int startVertex);
+    bool isExplored(int v);
 
 protected:
 

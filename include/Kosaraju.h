@@ -5,23 +5,25 @@
 #include "Digraph.h"
 #include <map>
 
+void kosarajuComputeFinishingTimes(Digraph* g, Digraph* resG, map<int, int>& f);
+
 class DFSKosarajuFinishingTimes : public DFSDirected {
 
 public:
 
-    DFSKosarajuFinishingTimes(Digraph* g, int* t, map<int, int>& f) : DFSDirected(g), tPtr(t), finishingTimes(f) { }
+    DFSKosarajuFinishingTimes(Digraph* g, map<int, int>& f) : DFSDirected(g), t(0), finishingTimes(f) { }
 
     map<int, int>& getFinishingTimes() { return this->finishingTimes; }
 
 protected:
 
     virtual void onExit(int startVertex) {
-        this->finishingTimes[startVertex] = ++(*(this->tPtr));
+        this->finishingTimes[startVertex] = ++(this->t);
     }
 
 private:
 
-    int* tPtr;
+    int t;
     map<int, int>& finishingTimes;
 
 };

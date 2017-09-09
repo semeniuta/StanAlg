@@ -32,6 +32,10 @@ void DFS::searchFrom(int startVertex) {
 
 }
 
+bool DFS::isExplored(int v) {
+    return this->explored[v];
+}
+
 void DFSDirected::reverseSearchFrom(int startVertex) {
 
     this->onEntry(startVertex);

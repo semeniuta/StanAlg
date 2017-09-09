@@ -1,23 +1,32 @@
 #include "Kosaraju.h"
+#include "Digraph.h"
 #include <map>
 #include <vector>
 
 using namespace std;
 
-#include "QuickSort.h"
-
-void kosarajuComputeFinishingTimes(Digraph* g, Digraph* res) {
-
-    int t = 0;
-    map<int, int> f;
+void kosarajuComputeFinishingTimes(Digraph* g, Digraph* resG, map<int, int>& f) {
 
     vector<int> vertices_desc;
     g->getVerticesVector(vertices_desc, false);
 
-    DFSKosarajuFinishingTimes dfs_ft(g, &t, f);
+    DFSKosarajuFinishingTimes dfs_ft(g, f);
 
     for (int& v : vertices_desc) {
-        dfs_ft.reverseSearchFrom(v);
+
+        if (!dfs_ft.isExplored(v)) {
+            dfs_ft.reverseSearchFrom(v);
+        }
+
+    }
+
+    int v, w;
+    for (auto itr = g->edgesMapBegin(); itr != g->edgesMapEnd(); itr++) {
+
+        v = itr->second.first;
+        w = itr->second.second;
+
+        resG->addEdge(f[v], f[w]);
     }
 
 
