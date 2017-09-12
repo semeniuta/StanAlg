@@ -1,4 +1,6 @@
 build/*
 install/*
 xcode/*
+.idea/*
+cmake-build-debug/*
 *.DS_Store
