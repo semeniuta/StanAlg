@@ -11,30 +11,31 @@ template<class T>
 class QuickSort {
 
 public:
+
     QuickSort();
 
-    QuickSort(ChoosePivotRule cpr);
+    explicit QuickSort(ChoosePivotRule cpr);
 
-    ~QuickSort();
-
-    virtual int sort(std::vector<T> *vec);
+    virtual unsigned long sort(std::vector<T> *vec);
 
 protected:
-    virtual int choosePivot(int lo, int hi);
+
+    virtual unsigned long choosePivot(unsigned long lo, unsigned long hi);
 
 private:
+
     std::vector<T> *pvec;
     ChoosePivotRule choose_pivot_rule;
 
-    int sort(int lo, int hi);
+    unsigned long sort(unsigned long lo, unsigned long hi);
 
-    int partition(int lo, int hi);
+    unsigned long partition(unsigned long lo, unsigned long hi);
 
-    void swap(int i, int j);
+    void swap(unsigned long i, unsigned long j);
 
-    T getVectorElement(int index);
+    T getVectorElement(unsigned long index);
 
-    void setVectorElement(int index, T val);
+    void setVectorElement(unsigned long index, T val);
 
 };
 

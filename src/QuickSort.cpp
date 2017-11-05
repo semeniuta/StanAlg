@@ -12,46 +12,41 @@ QuickSort<T>::QuickSort(ChoosePivotRule cpr) {
 }
 
 template<class T>
-QuickSort<T>::~QuickSort() {}
-
-template<class T>
-int QuickSort<T>::sort(std::vector<T> *vec) {
+unsigned long QuickSort<T>::sort(std::vector<T> *vec) {
     this->pvec = vec;
 
-    int num_compares;
-    num_compares = this->sort(0, this->pvec->size() - 1);
+    auto num_compares = this->sort(0, this->pvec->size() - 1);
 
     return num_compares;
 }
 
 template<class T>
-int QuickSort<T>::sort(int lo, int hi) {
+unsigned long QuickSort<T>::sort(unsigned long lo, unsigned long hi) {
 
-    if (lo >= hi) {
+    if (hi + 1 == 0 || lo >= hi) {
         return 0;
     }
 
-    int initial_pivot_index = this->choosePivot(lo, hi);
+    auto initial_pivot_index = this->choosePivot(lo, hi);
     this->swap(lo, initial_pivot_index);
-    int pivot_index = this->partition(lo, hi);
+    auto pivot_index = this->partition(lo, hi);
 
-    int num_compares_1, num_compares_2;
-    num_compares_1 = this->sort(lo, pivot_index - 1);
-    num_compares_2 = this->sort(pivot_index + 1, hi);
+    auto num_compares_1 = this->sort(lo, pivot_index - 1);
+    auto num_compares_2 = this->sort(pivot_index + 1, hi);
 
     return num_compares_1 + num_compares_2 + (hi - lo);
 
 }
 
 template<class T>
-int QuickSort<T>::choosePivot(int lo, int hi) {
+unsigned long QuickSort<T>::choosePivot(unsigned long lo, unsigned long hi) {
 
     switch (this->choose_pivot_rule) {
 
         case medianOfThree: {
-            int len = hi - lo + 1;
+            unsigned long len = hi - lo + 1;
 
-            int mid;
+            unsigned long mid;
             if (len % 2 == 0) {
                 mid = lo + len / 2 - 1;
             } else {
@@ -79,8 +74,8 @@ int QuickSort<T>::choosePivot(int lo, int hi) {
 
             }
 
-            int median = 0;
-            for (int i = 0; i < 3; i++) {
+            unsigned long median = 0;
+            for (unsigned long i = 0; i < 3; i++) {
                 if (i != smallest_ind && i != largest_ind) {
                     median = i;
                     break;
@@ -107,20 +102,20 @@ int QuickSort<T>::choosePivot(int lo, int hi) {
 }
 
 template<class T>
-int QuickSort<T>::partition(int lo, int hi) {
+unsigned long QuickSort<T>::partition(unsigned long lo, unsigned long hi) {
 
     T p = this->getVectorElement(lo);
 
-    int i = lo + 1;
+    unsigned long i = lo + 1;
 
-    for (int j = lo + 1; j <= hi; j++) {
+    for (unsigned long j = lo + 1; j <= hi; j++) {
         if (this->getVectorElement(j) < p) {
             this->swap(i, j);
             i++;
         }
     }
 
-    int pivot_index = i - 1;
+    unsigned long pivot_index = i - 1;
     this->swap(lo, pivot_index);
 
     return pivot_index;
@@ -128,19 +123,19 @@ int QuickSort<T>::partition(int lo, int hi) {
 }
 
 template<class T>
-void QuickSort<T>::swap(int i, int j) {
+void QuickSort<T>::swap(unsigned long i, unsigned long j) {
     T temp = this->getVectorElement(i);
     this->setVectorElement(i, this->getVectorElement(j));
     this->setVectorElement(j, temp);
 }
 
 template<class T>
-T QuickSort<T>::getVectorElement(int index) {
+T QuickSort<T>::getVectorElement(unsigned long index) {
     return (*(this->pvec))[index];
 }
 
 template<class T>
-void QuickSort<T>::setVectorElement(int index, T val) {
+void QuickSort<T>::setVectorElement(unsigned long index, T val) {
     (*(this->pvec))[index] = val;
 }
 

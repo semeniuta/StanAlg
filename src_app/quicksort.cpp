@@ -51,11 +51,10 @@ int main(int argc, char *argv[]) {
 
     QuickSort<int> qs(cpr);
 
-    int num_compares;
-    num_compares = qs.sort(&numbers);
+    auto num_compares = qs.sort(&numbers);
 
-    for (int i = 0; i < numbers.size(); i++) {
-        cout << numbers[i] << " ";
+    for (auto& num : numbers) {
+        cout << num << " ";
     }
     cout << endl;
 
