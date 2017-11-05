@@ -10,12 +10,11 @@ int main() {
 
     printVector(vec);
 
-    vector<int>& vec1 = vec;
+    vector<int> &vec1 = vec;
     vector<int> vec2 = vec1;
     vec1.push_back(20);
     printVector(vec);
     printVector(vec2);
-
 
 
 }

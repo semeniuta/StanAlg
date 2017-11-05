@@ -7,18 +7,20 @@
 
 namespace mp = boost::multiprecision;
 
-template <class T>
+template<class T>
 class InvCount : public MergeSort<T> {
 
-  public:
-    InvCount() : MergeSort<T>(), lastMergeNumInv(0), numInvTotal(0) {  }
-    virtual void sort(std::vector<T>* vec);
+public:
+    InvCount() : MergeSort<T>(), lastMergeNumInv(0), numInvTotal(0) {}
+
+    virtual void sort(std::vector<T> *vec);
+
     mp::int128_t getNumberOfInversions();
 
-  protected:
+protected:
     virtual void onCopyFromSecondHalf(int lo, int mid, int hi, int k, int i, int j);
 
-  private:
+private:
     mp::int128_t lastMergeNumInv;
     mp::int128_t numInvTotal;
 

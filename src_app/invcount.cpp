@@ -7,43 +7,43 @@
 
 using namespace std;
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
 
-  FileReader fr;
-  vector<int> numbers;
+    FileReader fr;
+    vector<int> numbers;
 
-  if (argc == 3) {
-    if (getArg(argc, argv, 1) == "-f") {
-      string fname = getArg(argc, argv, 2);
+    if (argc == 3) {
+        if (getArg(argc, argv, 1) == "-f") {
+            string fname = getArg(argc, argv, 2);
 
-      fr.open(fname);
+            fr.open(fname);
 
-      string current_str;
-      int current_number;
-      while (!fr.eof()) {
-        current_str = fr.readLine();
-        if (current_str.length() != 0) {
-          current_number = atoi(current_str.c_str());
-          numbers.push_back(current_number);
+            string current_str;
+            int current_number;
+            while (!fr.eof()) {
+                current_str = fr.readLine();
+                if (current_str.length() != 0) {
+                    current_number = atoi(current_str.c_str());
+                    numbers.push_back(current_number);
+                }
+            }
+
         }
-      }
-
+    } else {
+        numbers = {10, 4, 6, 2, 7, 1};
     }
-  } else {
-    numbers = {10, 4, 6, 2, 7, 1};
-  }
 
-  InvCount <int>ic;
-  ic.sort(&numbers);
+    InvCount<int> ic;
+    ic.sort(&numbers);
 
 
-  cout << "The sorted array:" << endl;
-  for (int i = 0; i < numbers.size(); i++) {
-    cout << numbers[i] << " ";
-  }
-  cout << endl;
+    cout << "The sorted array:" << endl;
+    for (int i = 0; i < numbers.size(); i++) {
+        cout << numbers[i] << " ";
+    }
+    cout << endl;
 
-  cout << "The number of inversions: ";
-  cout << ic.getNumberOfInversions() << endl;
+    cout << "The number of inversions: ";
+    cout << ic.getNumberOfInversions() << endl;
 
 }

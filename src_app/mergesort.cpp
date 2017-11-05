@@ -4,17 +4,17 @@
 
 using namespace std;
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
 
-  vector<int> a = {4, 6, 2, 7, 1};
+    vector<int> a = {4, 6, 2, 7, 1};
 
-  MergeSort<int> ms;
+    MergeSort<int> ms;
 
-  ms.sort(&a);
+    ms.sort(&a);
 
-  for (int i = 0; i < a.size(); i++) {
-    cout << a[i] << " ";
-  }
-  cout << endl;
+    for (int i = 0; i < a.size(); i++) {
+        cout << a[i] << " ";
+    }
+    cout << endl;
 
 }

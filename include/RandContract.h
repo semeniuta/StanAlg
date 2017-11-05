@@ -7,15 +7,18 @@
 class RandomContraction {
 
 public:
-  RandomContraction(ContractableGraph* g);
-  ~RandomContraction();
-  int doContraction();
-  
-  
+    RandomContraction(ContractableGraph *g);
+
+    ~RandomContraction();
+
+    int doContraction();
+
+
 private:
-  ContractableGraph* originalGraph;
-  void copyGraph(ContractableGraph* targetGraph);
-  
+    ContractableGraph *originalGraph;
+
+    void copyGraph(ContractableGraph *targetGraph);
+
 };
 
 

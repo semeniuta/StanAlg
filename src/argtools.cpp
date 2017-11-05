@@ -3,13 +3,13 @@
 
 #include <string>
 
-std::string getArg(int argc, char* argv[], int index) {
-  if (index < 0 || index >= argc) {
-    return NULL;
-  }
+std::string getArg(int argc, char *argv[], int index) {
+    if (index < 0 || index >= argc) {
+        return NULL;
+    }
 
-  std::string s(argv[index]);
+    std::string s(argv[index]);
 
-  return s;
+    return s;
 
 }

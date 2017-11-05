@@ -3,29 +3,37 @@
 
 #include <vector>
 
-enum ChoosePivotRule { first, last, medianOfThree };
+enum ChoosePivotRule {
+    first, last, medianOfThree
+};
 
-template <class T>
+template<class T>
 class QuickSort {
 
-  public:
+public:
     QuickSort();
-    QuickSort(ChoosePivotRule cpr);
-    ~QuickSort();
-    virtual int sort(std::vector<T>* vec);
 
-  protected:
+    QuickSort(ChoosePivotRule cpr);
+
+    ~QuickSort();
+
+    virtual int sort(std::vector<T> *vec);
+
+protected:
     virtual int choosePivot(int lo, int hi);
 
-  private:
-    std::vector<T>* pvec;
+private:
+    std::vector<T> *pvec;
     ChoosePivotRule choose_pivot_rule;
 
     int sort(int lo, int hi);
+
     int partition(int lo, int hi);
+
     void swap(int i, int j);
 
     T getVectorElement(int index);
+
     void setVectorElement(int index, T val);
 
 };

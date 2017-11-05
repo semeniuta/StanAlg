@@ -10,17 +10,20 @@ class DFS {
 
 public:
 
-    DFS(Graph* g);
+    DFS(Graph *g);
+
     virtual void searchFrom(int startVertex);
+
     bool isExplored(int v);
 
 protected:
 
-    Graph* graph;
+    Graph *graph;
     map<int, bool> explored;
 
-    virtual void onEntry(int startVertex) { }
-    virtual void onExit(int startVertex) { }
+    virtual void onEntry(int startVertex) {}
+
+    virtual void onExit(int startVertex) {}
 
 };
 
@@ -28,11 +31,11 @@ class DFSDirected : public DFS {
 
 public:
 
-    DFSDirected(Digraph* g) : DFS(g) { }
+    DFSDirected(Digraph *g) : DFS(g) {}
+
     virtual void reverseSearchFrom(int startVertex);
 
 };
-
 
 
 #endif

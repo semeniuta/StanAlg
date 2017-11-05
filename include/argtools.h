@@ -3,6 +3,6 @@
 
 #include <string>
 
-std::string getArg(int argc, char* argv[], int index);
+std::string getArg(int argc, char *argv[], int index);
 
 #endif

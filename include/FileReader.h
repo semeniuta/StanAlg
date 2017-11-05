@@ -6,15 +6,20 @@
 
 class FileReader {
 
-  std::ifstream iFileStream;
+    std::ifstream iFileStream;
 
-  public:
-     FileReader();
-     ~FileReader();
-     int open(std::string fname);
-     std::string readLine();
-     bool eof();
-     bool fileExists();
+public:
+    FileReader();
+
+    ~FileReader();
+
+    int open(std::string fname);
+
+    std::string readLine();
+
+    bool eof();
+
+    bool fileExists();
 
 };
 
