@@ -18,13 +18,20 @@ public:
     mp::int128_t getNumberOfInversions();
 
 protected:
-    virtual void onCopyFromSecondHalf(int lo, int mid, int hi, int k, int i, int j);
+    virtual void onCopyFromSecondHalf(
+            unsigned long lo,
+            unsigned long mid,
+            unsigned long hi,
+            unsigned long k,
+            unsigned long i,
+            unsigned long j
+    );
 
 private:
     mp::int128_t lastMergeNumInv;
     mp::int128_t numInvTotal;
 
-    mp::int128_t sortAndInvCount(int lo, int hi);
+    mp::int128_t sortAndInvCount(unsigned long lo, unsigned long hi);
 
 };
 

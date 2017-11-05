@@ -22,14 +22,12 @@ void MergeSort<T>::sort(std::vector<T> *vec) {
     this->pvec = vec;
     this->size = vec->size();
 
-    if (!(this->aux == nullptr)) {
-        delete this->aux;
-    }
+    delete this->aux;
     this->aux = new T[this->size];
 
     sort(0, this->size - 1);
 
-    for (int i = 0; i < this->size; i++) {
+    for (unsigned int i = 0; i < this->size; i++) {
         std::cout << this->getVectorElement(i) << " ";
     }
     std::cout << std::endl;
@@ -37,13 +35,13 @@ void MergeSort<T>::sort(std::vector<T> *vec) {
 }
 
 template<class T>
-void MergeSort<T>::sort(int lo, int hi) {
+void MergeSort<T>::sort(unsigned long lo, unsigned long hi) {
 
     if (lo >= hi) {
         return;
     }
 
-    int mid = lo + (hi - lo) / 2;
+    auto mid = lo + (hi - lo) / 2;
 
     this->sort(lo, mid);
     this->sort(mid + 1, hi);
@@ -53,16 +51,16 @@ void MergeSort<T>::sort(int lo, int hi) {
 }
 
 template<class T>
-void MergeSort<T>::merge(int lo, int mid, int hi) {
+void MergeSort<T>::merge(unsigned long lo, unsigned long mid, unsigned long hi) {
 
-    for (int k = lo; k <= hi; k++) {
+    for (auto k = lo; k <= hi; k++) {
         this->aux[k] = this->getVectorElement(k);
     }
 
-    int i = lo;
-    int j = mid + 1;
+    auto i = lo;
+    auto j = mid + 1;
 
-    for (int k = lo; k <= hi; k++) {
+    for (auto k = lo; k <= hi; k++) {
 
         if (i > mid) {
             this->onCopyFromSecondHalf(lo, mid, hi, k, i, j);
@@ -83,20 +81,34 @@ void MergeSort<T>::merge(int lo, int mid, int hi) {
 }
 
 template<class T>
-T MergeSort<T>::getVectorElement(int index) {
+T MergeSort<T>::getVectorElement(unsigned long index) {
     return (*(this->pvec))[index];
 }
 
 template<class T>
-void MergeSort<T>::setVectorElement(int index, T val) {
+void MergeSort<T>::setVectorElement(unsigned long index, T val) {
     (*(this->pvec))[index] = val;
 }
 
 template<class T>
-void MergeSort<T>::onCopyFromFirstHalf(int lo, int mid, int hi, int k, int i, int j) {}
+void MergeSort<T>::onCopyFromFirstHalf(
+        unsigned long lo,
+        unsigned long mid,
+        unsigned long hi,
+        unsigned long k,
+        unsigned long i,
+        unsigned long j
+) {}
 
 template<class T>
-void MergeSort<T>::onCopyFromSecondHalf(int lo, int mid, int hi, int k, int i, int j) {}
+void MergeSort<T>::onCopyFromSecondHalf(
+        unsigned long lo,
+        unsigned long mid,
+        unsigned long hi,
+        unsigned long k,
+        unsigned long i,
+        unsigned long j
+) {}
 
 template
 class MergeSort<int>;
