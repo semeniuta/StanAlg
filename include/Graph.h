@@ -21,8 +21,6 @@ class Graph {
 public:
     Graph();
 
-    Graph(const Graph& other);
-
     ~Graph();
 
     void addVertex(int v);
