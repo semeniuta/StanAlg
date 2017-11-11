@@ -30,7 +30,7 @@ void ContractableGraph::shrinkAdjOnContraction(int v_keep, int v_away) {
 
     // Copy the adjacency list from the vertex that is going away
 
-    for (const AdjacentVertex &a : this->adj[v_away]) {
+    for (const AdjacentVertex& a : this->adj[v_away]) {
         this->adj[v_keep].push_back(a);
     }
     this->adj.erase(v_away);
@@ -42,7 +42,7 @@ void ContractableGraph::renameInEdgesMapOnContraction(int v_keep, int v_away) {
 
     // Rename in edges map
 
-    for (const pair<int, pair<int, int>> &e : this->edges) {
+    for (const pair<int, pair<int, int>>& e : this->edges) {
         int key = e.first;
         int a = e.second.first;
         int b = e.second.second;
@@ -65,10 +65,10 @@ void ContractableGraph::removeSelfLoopsAfterContraction(int v_keep, int v_away) 
     for (AdjMapIterator ami = this->adj.begin(); ami != this->adj.end(); ami++) {
 
         int v = ami->first;
-        list<AdjacentVertex> &v_adj = ami->second;
+        list<AdjacentVertex>& v_adj = ami->second;
 
         // rename
-        for (AdjacentVertex &a : v_adj) {
+        for (AdjacentVertex& a : v_adj) {
             if (a.w == v_away) {
                 a.w = v_keep;
             }

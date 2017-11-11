@@ -53,7 +53,7 @@ void Graph::addAdjacencyInfo(int v, int w, int edgeIndex) {
     this->adj[w].push_back({v, edgeIndex});
 }
 
-pair<int, int> &Graph::edgeEndpoints(int edgeIndex) {
+pair<int, int>& Graph::edgeEndpoints(int edgeIndex) {
     return this->edges[edgeIndex];
 }
 
@@ -65,7 +65,7 @@ int Graph::countEdges() {
     return num_edges;
 }
 
-void Graph::getVerticesVector(vector<int> &vertices, bool ascending) {
+void Graph::getVerticesVector(vector<int>& vertices, bool ascending) {
 
     if (ascending) {
 
@@ -84,9 +84,9 @@ void Graph::getVerticesVector(vector<int> &vertices, bool ascending) {
 
 }
 
-list<AdjacentVertex> &Graph::getListofAdjacentVertices(int v) {
+list<AdjacentVertex>& Graph::getListofAdjacentVertices(int v) {
 
-    list<AdjacentVertex> &adj_list = this->adj[v];
+    list<AdjacentVertex>& adj_list = this->adj[v];
     return adj_list;
 
 }
@@ -107,7 +107,7 @@ EdgesMapIterator Graph::edgesMapEnd() {
     return this->edges.end();
 }
 
-void Graph::printAdj(map<int, list<AdjacentVertex>> &adj_map) {
+void Graph::printAdj(map<int, list<AdjacentVertex>>& adj_map) {
 
     for (AdjMapIterator itr = adj_map.begin(); itr != adj_map.end(); itr++) {
         cout << itr->first << ": [";
@@ -131,7 +131,7 @@ void Graph::printGraph() {
 
 void Graph::printEdges() {
 
-    for (const pair<int, pair<int, int>> &el : this->edges) {
+    for (const pair<int, pair<int, int>>& el : this->edges) {
         cout << el.first << ": (" << el.second.first << ", " << el.second.second << ")" << endl;
     }
 

@@ -19,9 +19,9 @@ void DFS::searchFrom(int startVertex) {
 
     this->explored[startVertex] = true;
 
-    list<AdjacentVertex> &adj = this->graph->getListofAdjacentVertices(startVertex);
+    list<AdjacentVertex>& adj = this->graph->getListofAdjacentVertices(startVertex);
 
-    for (AdjacentVertex &neighbor : adj) {
+    for (AdjacentVertex& neighbor : adj) {
         int next_vertex = neighbor.w;
         if (!this->explored[next_vertex]) {
             this->searchFrom(next_vertex);
@@ -42,10 +42,10 @@ void DFSDirected::reverseSearchFrom(int startVertex) {
 
     this->explored[startVertex] = true;
 
-    Digraph *g = (Digraph *) this->graph;
-    list<AdjacentVertex> &adj_rev = g->getListOfReverseAdjacentVertices(startVertex);
+    Digraph* g = (Digraph*) this->graph;
+    list<AdjacentVertex>& adj_rev = g->getListOfReverseAdjacentVertices(startVertex);
 
-    for (AdjacentVertex &src_neighbor : adj_rev) {
+    for (AdjacentVertex& src_neighbor : adj_rev) {
         int prev_vertex = src_neighbor.w;
         if (!this->explored[prev_vertex]) {
             this->reverseSearchFrom(prev_vertex);

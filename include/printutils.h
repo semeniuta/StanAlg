@@ -6,8 +6,8 @@
 
 void printArray(int *array, int size);
 
-void printVector(std::vector<int> &vec);
+void printVector(std::vector<int>& vec);
 
-void printMap(std::map<int, int> &m);
+void printMap(std::map<int, int>& m);
 
 #endif

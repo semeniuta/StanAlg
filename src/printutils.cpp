@@ -13,7 +13,7 @@ void printArray(int *array, int size) {
 
 }
 
-void printVector(std::vector<int> &vec) {
+void printVector(std::vector<int>& vec) {
 
     int size = vec.size();
     std::cout << "[";
@@ -24,7 +24,7 @@ void printVector(std::vector<int> &vec) {
 
 }
 
-void printMap(std::map<int, int> &m) {
+void printMap(std::map<int, int>& m) {
 
     std::cout << "{" << std::endl;
 

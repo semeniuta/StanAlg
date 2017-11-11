@@ -21,7 +21,7 @@ class Graph {
 public:
     Graph();
 
-    Graph(const Graph &other);
+    Graph(const Graph& other);
 
     ~Graph();
 
@@ -37,11 +37,11 @@ public:
 
     EdgesMapIterator edgesMapEnd();
 
-    void getVerticesVector(vector<int> &vertices, bool ascending = true);
+    void getVerticesVector(vector<int>& vertices, bool ascending = true);
 
-    list<AdjacentVertex> &getListofAdjacentVertices(int v);
+    list<AdjacentVertex>& getListofAdjacentVertices(int v);
 
-    pair<int, int> &edgeEndpoints(int edgeIndex);
+    pair<int, int>& edgeEndpoints(int edgeIndex);
 
     int countVertices();
 
@@ -68,7 +68,7 @@ protected:
 
     bool edgeExists(int v, int w);
 
-    void printAdj(map<int, list<AdjacentVertex>> &adj_map);
+    void printAdj(map<int, list<AdjacentVertex>>& adj_map);
 
 };
 
