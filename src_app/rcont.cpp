@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <sstream>
 #include "Graph.h"
 #include "RandContract.h"
 #include "FileReader.h"
