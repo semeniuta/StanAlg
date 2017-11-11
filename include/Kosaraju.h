@@ -17,7 +17,7 @@ public:
 
 protected:
 
-    virtual void onExit(int startVertex) {
+    void onExit(int startVertex) override {
         this->finishingTimes[startVertex] = ++(this->t);
     }
 
@@ -36,7 +36,7 @@ public:
 
 protected:
 
-    virtual void onEntry(int startVertex) {
+    void onEntry(int startVertex) override {
         this->leader[startVertex] = *sPtr;
     }
 

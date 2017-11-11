@@ -42,7 +42,7 @@ void DFSDirected::reverseSearchFrom(int startVertex) {
 
     this->explored[startVertex] = true;
 
-    Digraph* g = (Digraph*) this->graph;
+    auto g = (Digraph*) this->graph;
     list<AdjacentVertex>& adj_rev = g->getListOfReverseAdjacentVertices(startVertex);
 
     for (AdjacentVertex& src_neighbor : adj_rev) {

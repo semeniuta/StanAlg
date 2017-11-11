@@ -13,15 +13,15 @@ class MyDFSDirected : public DFSDirected {
 
 public:
 
-    MyDFSDirected(Digraph *g) : DFSDirected(g) {}
+    explicit MyDFSDirected(Digraph *g) : DFSDirected(g) {}
 
 protected:
 
-    virtual void onEntry(int startVertex) {
+    void onEntry(int startVertex) override {
         std::cout << startVertex << std::endl;
     }
 
-    virtual void onExit(int startVertex) {
+    void onExit(int startVertex) override {
         std::cout << "\t" << startVertex << std::endl;
     }
 };
@@ -29,7 +29,6 @@ protected:
 int main() {
 
     Digraph g;
-    //Graph g;
 
     vector<pair<int, int>> edges = {
             pair<int, int>(1, 5),
@@ -44,7 +43,7 @@ int main() {
 
     };
 
-    for (const pair<int, int> &p : edges) {
+    for (const pair<int, int>& p : edges) {
         g.addEdge(p.first, p.second);
     }
 

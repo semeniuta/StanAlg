@@ -10,7 +10,9 @@ class DFS {
 
 public:
 
-    DFS(Graph *g);
+    DFS() = delete;
+
+    explicit DFS(Graph *g);
 
     virtual void searchFrom(int startVertex);
 
@@ -31,7 +33,7 @@ class DFSDirected : public DFS {
 
 public:
 
-    DFSDirected(Digraph *g) : DFS(g) {}
+    explicit DFSDirected(Digraph *g) : DFS(g) {}
 
     virtual void reverseSearchFrom(int startVertex);
 
