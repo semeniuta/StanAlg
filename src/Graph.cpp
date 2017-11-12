@@ -65,7 +65,9 @@ int Graph::countEdges() {
     return num_edges;
 }
 
-void Graph::getVerticesVector(vector<int>& vertices, bool ascending) {
+std::vector<int> Graph::getVerticesVector(bool ascending) {
+
+    std::vector<int> vertices;
 
     if (ascending) {
 
@@ -81,7 +83,7 @@ void Graph::getVerticesVector(vector<int>& vertices, bool ascending) {
 
     }
 
-
+    return vertices;
 }
 
 list<AdjacentVertex>& Graph::getListofAdjacentVertices(int v) {

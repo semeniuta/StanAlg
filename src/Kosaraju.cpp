@@ -3,16 +3,13 @@
 #include <map>
 #include <vector>
 
-using namespace std;
-
 void kosarajuComputeFinishingTimes(Digraph *g, Digraph *graphF, map<int, int>& f) {
 
-    vector<int> vertices_desc;
-    g->getVerticesVector(vertices_desc, false);
+    vector<int> vertices = g->getVerticesVector();
 
     DFSKosarajuFinishingTimes dfs_ft(g, f);
 
-    for (int& v : vertices_desc) {
+    for (int& v : vertices) {
 
         if (!dfs_ft.isExplored(v)) {
             dfs_ft.reverseSearchFrom(v);
@@ -33,8 +30,7 @@ void kosarajuComputeFinishingTimes(Digraph *g, Digraph *graphF, map<int, int>& f
 
 void kosarajuDetermineLeaders(Digraph *graphF, map<int, int>& leaderMap) {
 
-    vector<int> vertices_desc;
-    graphF->getVerticesVector(vertices_desc, false);
+    vector<int> vertices_desc = graphF->getVerticesVector(false);
 
     int s;
 

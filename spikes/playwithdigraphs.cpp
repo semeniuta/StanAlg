@@ -51,8 +51,7 @@ int main() {
     g.printGraph();
 
     cout << "Vertices:" << endl;
-    vector<int> vertices;
-    g.getVerticesVector(vertices, false);
+    vector<int> vertices = g.getVerticesVector();
     printVector(vertices);
 
     cout << "The reversed graph:" << endl;

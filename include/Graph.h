@@ -35,7 +35,7 @@ public:
 
     EdgesMapIterator edgesMapEnd();
 
-    void getVerticesVector(vector<int>& vertices, bool ascending = true);
+    std::vector<int> getVerticesVector(bool ascending = true);
 
     list<AdjacentVertex>& getListofAdjacentVertices(int v);
 
