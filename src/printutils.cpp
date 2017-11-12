@@ -3,20 +3,6 @@
 #include <map>
 #include "printutils.h"
 
-void printArray(int *array, int size) {
-
-    std::cout << "[";
-    for (int i = 0; i < size - 1; i++) {
-        std::cout << array[i] << ", ";
-    }
-    std::cout << array[size - 1] << "]" << std::endl;
-
-}
-
-void printVector(std::vector<int>& vec) {
-    printVector<int>(vec);
-}
-
 template <typename T>
 void printVector(std::vector<T>& vec) {
 

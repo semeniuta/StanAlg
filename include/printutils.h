@@ -4,10 +4,6 @@
 #include <vector>
 #include <map>
 
-void printArray(int *array, int size);
-
-void printVector(std::vector<int>& vec); // temporarily
-
 template <typename T>
 void printVector(std::vector<T>& vec);
 

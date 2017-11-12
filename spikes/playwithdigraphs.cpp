@@ -52,7 +52,7 @@ int main() {
 
     cout << "Vertices:" << endl;
     vector<int> vertices = g.getVerticesVector();
-    printVector(vertices);
+    printVector<int>(vertices);
 
     cout << "The reversed graph:" << endl;
     g.printReversedGraph();
@@ -88,7 +88,7 @@ int main() {
 
         std::cout << "Leader " << scc.first << std::endl;
 
-        printVector(scc.second);
+        printVector<int>(scc.second);
 
     }
 
