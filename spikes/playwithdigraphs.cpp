@@ -82,4 +82,14 @@ int main() {
     cout << "Leaders:" << endl;
     printMap(leaders);
 
+
+    std::map<int, vector<int>> components = kosarajuSCC(g);
+    for (auto& scc : components) {
+
+        std::cout << "Leader " << scc.first << std::endl;
+
+        printVector(scc.second);
+
+    }
+
 }

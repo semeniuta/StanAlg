@@ -5,6 +5,8 @@
 #include "Digraph.h"
 #include <map>
 
+std::map<int, std::vector<int>> kosarajuSCC(Digraph& g);
+
 void kosarajuComputeFinishingTimes(Digraph *g, Digraph *resG, map<int, int>& f);
 
 void kosarajuDetermineLeaders(Digraph *graphF, map<int, int>& leaderMap);

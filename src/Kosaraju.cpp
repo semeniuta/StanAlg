@@ -3,9 +3,39 @@
 #include <map>
 #include <vector>
 
-void kosarajuComputeFinishingTimes(Digraph *g, Digraph *graphF, map<int, int>& f) {
+std::map<int, std::vector<int>> kosarajuSCC(Digraph& g) {
 
-    vector<int> vertices = g->getVerticesVector();
+    std::map<int, int> f;
+    Digraph graph_ftimes;
+
+    kosarajuComputeFinishingTimes(&g, &graph_ftimes, f);
+
+    std::map<int, int> leaders;
+    kosarajuDetermineLeaders(&graph_ftimes, leaders);
+
+    std::map<int, std::vector<int>> components;
+
+    for (const auto& p : f) {
+
+        int vertex = p.first;
+        int finishing_time = p.second;
+        int leader = leaders.at(finishing_time);
+
+        if (components.find(leader) == components.end()) {
+            components[leader] = std::vector<int>{ vertex };
+        } else {
+            components.at(leader).push_back(vertex);
+        }
+
+    }
+
+    return components;
+
+}
+
+void kosarajuComputeFinishingTimes(Digraph* g, Digraph* graphF, std::map<int, int>& f) {
+
+    std::vector<int> vertices = g->getVerticesVector();
 
     DFSKosarajuFinishingTimes dfs_ft(g, f);
 
@@ -28,9 +58,9 @@ void kosarajuComputeFinishingTimes(Digraph *g, Digraph *graphF, map<int, int>& f
 
 }
 
-void kosarajuDetermineLeaders(Digraph *graphF, map<int, int>& leaderMap) {
+void kosarajuDetermineLeaders(Digraph *graphF, std::map<int, int>& leaderMap) {
 
-    vector<int> vertices_desc = graphF->getVerticesVector(false);
+    std::vector<int> vertices_desc = graphF->getVerticesVector(false);
 
     int s;
 
