@@ -1,8 +1,12 @@
 #include <iostream>
+#include <algorithm>
+#include <functional>
 #include "ioutils.h"
 #include "argtools.h"
+#include "printutils.h"
 #include "FileReader.h"
 #include "Digraph.h"
+#include "Kosaraju.h"
 
 
 int main(int argc, char *argv[]) {
@@ -18,6 +22,8 @@ int main(int argc, char *argv[]) {
         if (argc == 3) {
 
             if (getArg(argc, argv, 1) == "-f") {
+
+                std::cout << "Reading the file and constructing Digraph\n";
 
                 FileReader fr;
                 string fname = getArg(argc, argv, 2);
@@ -63,11 +69,18 @@ int main(int argc, char *argv[]) {
 
     }
 
-    std::cout << "> ";
-    getchar();
+    std::cout << "Detecting strongly connected components\n";
+    std::map<int, vector<int>> components = kosarajuSCC(g);
 
-    std::cout << "Done\n";
+    std::vector<unsigned long> scc_sizes;
+    for (const auto& scc : components) {
+        unsigned long size = scc.second.size();
+        scc_sizes.push_back(size);
+    }
 
+    std::cout << "Sizes of the SCCs:\n";
+    std::sort(scc_sizes.begin(), scc_sizes.end(), std::greater<>());
+    printVector<unsigned long>(scc_sizes);
 
 
 

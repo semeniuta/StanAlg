@@ -139,8 +139,6 @@ void QuickSort<T>::setVectorElement(unsigned long index, T val) {
     (*(this->pvec))[index] = val;
 }
 
-template
-class QuickSort<int>;
+template class QuickSort<int>;
 
-template
-class QuickSort<double>;
+template class QuickSort<double>;
