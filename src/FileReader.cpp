@@ -3,29 +3,26 @@
 #include <string>
 #include <iostream>
 
-FileReader::FileReader() {}
-
 FileReader::~FileReader() {
     iFileStream.close();
 }
 
-int FileReader::open(std::string fname) {
+void FileReader::open(std::string fname) {
 
-    const char *fname_cstr = fname.c_str();
+    const char* fname_cstr = fname.c_str();
 
     iFileStream.open(fname_cstr);
 
-    if (this->fileExists()) {
-        std::cout << "File " << fname << " opened." << std::endl;
+    if (!this->fileExists()) {
+        throw std::runtime_error("File does not exist");
     }
 
-    return 0;
 }
 
 std::string FileReader::readLine() {
 
     if (!this->fileExists()) {
-        return NULL;
+        return nullptr;
     }
 
     std::string line;

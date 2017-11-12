@@ -9,11 +9,11 @@ class FileReader {
     std::ifstream iFileStream;
 
 public:
-    FileReader();
+    FileReader() = default;
 
     ~FileReader();
 
-    int open(std::string fname);
+    void open(std::string fname);
 
     std::string readLine();
 
