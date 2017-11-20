@@ -74,13 +74,13 @@ int main() {
     graph_ftimes.printGraph();
 
     cout << "Finishing times map:" << endl;
-    printMap(f);
+    printMap<int, int>(f);
 
     map<int, int> leaders;
     kosarajuDetermineLeaders(&graph_ftimes, leaders);
 
     cout << "Leaders:" << endl;
-    printMap(leaders);
+    printMap<int, int>(leaders);
 
 
     std::map<int, vector<int>> components = kosarajuSCC(g);

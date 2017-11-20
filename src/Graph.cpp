@@ -9,8 +9,6 @@ using namespace std;
 
 Graph::Graph() : num_vertices(0), num_edges(0) {}
 
-Graph::~Graph() {}
-
 void Graph::addVertex(int v) {
 
     if (this->vertexExists(v)) {

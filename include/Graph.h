@@ -21,11 +21,9 @@ class Graph {
 public:
     Graph();
 
-    ~Graph();
-
     void addVertex(int v);
 
-    int addEdge(int v, int w);
+    virtual int addEdge(int v, int w);
 
     AdjMapIterator adjMapBegin();
 
@@ -50,11 +48,10 @@ public:
     void printEdges();
 
 protected:
+
     map<int, list<AdjacentVertex>> adj;
 
     map<int, pair<int, int>> edges;
-
-    virtual void addAdjacencyInfo(int v, int w, int edgeIndex);
 
     int num_vertices;
 
@@ -65,6 +62,8 @@ protected:
     bool edgeExists(int edgeIndex);
 
     bool edgeExists(int v, int w);
+
+    virtual void addAdjacencyInfo(int v, int w, int edgeIndex);
 
     void printAdj(map<int, list<AdjacentVertex>>& adj_map);
 

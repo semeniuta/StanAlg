@@ -15,7 +15,8 @@ void printVector(std::vector<T>& vec) {
 
 }
 
-void printMap(std::map<int, int>& m) {
+template <typename K, typename V>
+void printMap(std::map<K, V>& m) {
 
     std::cout << "{" << std::endl;
 
@@ -26,5 +27,7 @@ void printMap(std::map<int, int>& m) {
 
 }
 
+template void printMap<int, int>(std::map<int, int>&);
+template void printMap<int, bool>(std::map<int, bool>&);
 template void printVector<int>(std::vector<int>&);
 template void printVector<unsigned long>(std::vector<unsigned long>&);

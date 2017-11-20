@@ -7,6 +7,7 @@
 template <typename T>
 void printVector(std::vector<T>& vec);
 
-void printMap(std::map<int, int>& m);
+template <typename K, typename V>
+void printMap(std::map<K, V>& m);
 
 #endif

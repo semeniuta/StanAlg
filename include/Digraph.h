@@ -13,7 +13,7 @@ public:
 
 protected:
 
-    virtual void addAdjacencyInfo(int v, int w, int edgeIndex);
+    void addAdjacencyInfo(int v, int w, int edgeIndex) override;
 
     map<int, list<AdjacentVertex>> adjReverse;
 
