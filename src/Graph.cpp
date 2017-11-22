@@ -63,6 +63,13 @@ int Graph::countEdges() {
     return num_edges;
 }
 
+bool Graph::hasVertex(int index) {
+    if (this->adj.find(index) != this->adj.end()) {
+        return true;
+    }
+    return false;
+}
+
 std::vector<int> Graph::getVerticesVector(bool ascending) {
 
     std::vector<int> vertices;

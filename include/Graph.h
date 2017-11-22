@@ -39,6 +39,8 @@ public:
 
     pair<int, int>& edgeEndpoints(int edgeIndex);
 
+    bool hasVertex(int index);
+
     int countVertices();
 
     int countEdges();

@@ -3,9 +3,21 @@
 
 #include "WeightedDigraph.h"
 #include "DFS.h"
-#include <algorithm>
+#include <set>
+#include <queue>
 
 const int NO_PATH_WEIGHT = 1000000;
+
+struct UnprocessedVertex {
+    int index;
+    int score;
+};
+
+struct UnprocessedVertexComparator {
+    bool operator()(const UnprocessedVertex& left, const UnprocessedVertex& right) {
+        return left.score > right.score;
+    }
+};
 
 class Dijkstra {
 
@@ -20,6 +32,15 @@ private:
     WeightedDigraph* graph;
     int start_vertex;
     std::map<int, bool> reachable;
+    std::map<int, int> shortest_paths;
+    std::set<int> frontier_edges;
+
+    std::priority_queue<UnprocessedVertex, std::vector<UnprocessedVertex>, UnprocessedVertexComparator> unprocessed_vertices;
+
+    void updateFrontier(int newVertexIndex);
+    int computeDijskatraGreedyScore(int v);
+    bool vertexIsProcessed(int v);
+
 
 };
 
