@@ -19,6 +19,8 @@ struct UnprocessedVertexComparator {
     }
 };
 
+using UnprocessedVerticesHeap = std::priority_queue<UnprocessedVertex, std::vector<UnprocessedVertex>, UnprocessedVertexComparator>;
+
 class Dijkstra {
 
 public:
@@ -33,11 +35,9 @@ private:
     int start_vertex;
     std::map<int, bool> reachable;
     std::map<int, int> shortest_paths;
-    std::set<int> frontier_edges;
+    UnprocessedVerticesHeap unprocessed_vertices;
 
-    std::priority_queue<UnprocessedVertex, std::vector<UnprocessedVertex>, UnprocessedVertexComparator> unprocessed_vertices;
-
-    void updateFrontier(int newVertexIndex);
+    void updateHeap(int extracted_v);
     int computeDijskatraGreedyScore(int v);
     bool vertexIsProcessed(int v);
 

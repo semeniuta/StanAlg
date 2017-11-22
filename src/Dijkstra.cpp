@@ -1,5 +1,6 @@
 #include "Dijkstra.h"
 #include <queue>
+#include <climits>
 
 Dijkstra::Dijkstra(WeightedDigraph* g, int startVertex) : graph(g), start_vertex(startVertex) {
 
@@ -8,20 +9,40 @@ Dijkstra::Dijkstra(WeightedDigraph* g, int startVertex) : graph(g), start_vertex
     }
 
     // Find the reachable subset of the graph
+
     DijkstraPreprocessingDFS preprocess(this->graph);
     preprocess.searchFrom(this->start_vertex);
     this->reachable = preprocess.copyReachabilityMap();
 
-    // Initialize shortest_paths and frontier_edges given the starting vertex
+    // Initialize shortest_paths given the starting vertex
+
     this->shortest_paths[this->start_vertex] = 0;
-    for (const auto& adj_vertex : g->getListofAdjacentVertices(startVertex)) {
-        if (adj_vertex.w != startVertex) {
-            this->frontier_edges.insert( adj_vertex.edgeIndex );
-        }
-    }
 
     // Initialize the priority queue of unprocessed vertices
-    // TODO
+
+    std::set<int> adj_to_start;
+    for (const auto& adj_vertex : this->graph->getListofAdjacentVertices(this->start_vertex)) {
+
+        adj_to_start.insert(adj_vertex.w);
+
+        UnprocessedVertex upv{
+                adj_vertex.w,
+                this->graph->getWeight(adj_vertex.edgeIndex)
+        };
+
+        this->unprocessed_vertices.push(upv);
+    }
+
+    for (auto v : this->graph->getVerticesVector()) {
+
+        if (adj_to_start.find(v) == adj_to_start.end()) {
+
+            UnprocessedVertex unreachable_upv{ v, INT_MAX };
+            this->unprocessed_vertices.push(unreachable_upv);
+
+        }
+
+    }
 
 }
 
@@ -31,22 +52,19 @@ void Dijkstra::computeShortestPaths() {
 
 }
 
-void Dijkstra::updateFrontier(int newVertexIndex) {
+void Dijkstra::updateHeap(int extracted_v) {
 
-    // Remove old frontier edges that point to the newly processed vertex
-    for (auto frontier_edge : this->frontier_edges) {
+    for (const auto& adj_edge : this->graph->getListofAdjacentVertices(extracted_v)) {
 
-        if (this->graph->edgeEndpoints(frontier_edge).second == newVertexIndex) {
-            this->frontier_edges.erase(frontier_edge);
+        int w = adj_edge.w;
+
+        if (!this->vertexIsProcessed(w)) {
+
+            // TODO
+            // Delete w from this->unprocessed_vertices
+            // and recompute score
         }
 
-    }
-
-    // Add new frontier edges from the newly processed vertex
-    for (const auto& adj_vertex : this->graph->getListofAdjacentVertices(newVertexIndex)) {
-        if (!vertexIsProcessed(adj_vertex.w)) {
-            this->frontier_edges.insert(adj_vertex.edgeIndex);
-        }
     }
 
 }
