@@ -140,5 +140,4 @@ void QuickSort<T>::setVectorElement(unsigned long index, T val) {
 }
 
 template class QuickSort<int>;
-
 template class QuickSort<double>;

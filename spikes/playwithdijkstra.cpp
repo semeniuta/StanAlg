@@ -1,6 +1,7 @@
 #include "Dijkstra.h"
 #include "WeightedDigraph.h"
 #include "printutils.h"
+#include "Heap.h"
 
 int main() {
 
@@ -33,6 +34,25 @@ int main() {
         pq.pop();
     }
     std::cout << std::endl;
+
+
+    Heap<int> my_heap;
+
+    for (int x : std::vector<int>{ 11, 9, 13, 12, 4, 5, 8, 7, 6 }) {
+        my_heap.insert(x);
+        my_heap.printData();
+    }
+
+    my_heap.remove( my_heap.findIndex(5) );
+    my_heap.printData();
+
+
+//    std::cout << "Popping ... \n";
+//    while (my_heap.size() > 0) {
+//        std::cout << my_heap.pop() << std::endl;
+//        my_heap.printData();
+//    }
+
 
 
 
