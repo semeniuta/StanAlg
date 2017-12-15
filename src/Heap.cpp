@@ -9,12 +9,12 @@ template <typename T>
 Heap<T>::Heap(std::function<bool(T,T)> compare_func) : compare(compare_func), heap_size(0) { }
 
 template <typename T>
-void Heap<T>::insert(T val) {
+unsigned long Heap<T>::insert(T val) {
 
     if (this->data.empty()) {
         this->data.push_back(val);
         this->heap_size++;
-        return;
+        return 0;
     }
 
     if (this->heap_size == this->data.size()) {
@@ -23,9 +23,9 @@ void Heap<T>::insert(T val) {
         this->data[this->heap_size] = val;
     }
 
-    this->bubbleUp(this->data.size() - 1);
-
     this->heap_size++;
+
+    return this->bubbleUp(this->data.size() - 1);
 
 }
 
@@ -79,9 +79,9 @@ void Heap<T>::remove(unsigned long index) {
 }
 
 template <typename T>
-void Heap<T>::bubbleUp(unsigned long index) {
+unsigned long Heap<T>::bubbleUp(unsigned long index) {
 
-    if (index == 0) return;
+    if (index == 0) return index;
 
     auto parent_index = this->parent(index);
 
@@ -89,18 +89,17 @@ void Heap<T>::bubbleUp(unsigned long index) {
     T parent_val = this->data[parent_index];
 
     bool in_place = this->compare(parent_val, my_val);
+    if (in_place) return index;
 
-    if (!in_place) {
-        this->swap(index, parent_index);
-        this->bubbleUp(parent_index);
-    }
+    this->swap(index, parent_index);
+    return this->bubbleUp(parent_index);
 
 }
 
 template <typename T>
-void Heap<T>::bubbleDown(unsigned long index) {
+unsigned long Heap<T>::bubbleDown(unsigned long index) {
 
-    if (index == this->heap_size-1) return;
+    if (index == this->heap_size-1) return index;
 
     auto child_index_1 = this->firstChild(index);
     auto child_index_2 = child_index_1 + 1;
@@ -111,16 +110,13 @@ void Heap<T>::bubbleDown(unsigned long index) {
     T child_2 = (child_index_2 < this->heap_size) ? this->data[child_index_2] : my_val;
 
     bool in_place = (this->compare(my_val, child_1) && this->compare(my_val, child_2));
+    if (in_place) return index;
 
-    if (!in_place) {
+    unsigned long smaller_child_index;
+    smaller_child_index = (this->data[child_index_1] < this->data[child_index_2]) ? child_index_1 : child_index_2;
 
-        unsigned long smaller_child_index;
-        smaller_child_index = (this->data[child_index_1] < this->data[child_index_2]) ? child_index_1 : child_index_2;
-
-        this->swap(index, smaller_child_index);
-        this->bubbleDown(smaller_child_index);
-
-    }
+    this->swap(index, smaller_child_index);
+    return this->bubbleDown(smaller_child_index);
 
 }
 
