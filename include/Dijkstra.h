@@ -2,9 +2,9 @@
 #define DIJKSTRA_H
 
 #include "WeightedDigraph.h"
+#include "UniqueValuedHeap.h"
 #include "DFS.h"
 #include <set>
-#include <queue>
 
 const int NO_PATH_WEIGHT = 1000000;
 
@@ -12,14 +12,6 @@ struct UnprocessedVertex {
     int index;
     int score;
 };
-
-struct UnprocessedVertexComparator {
-    bool operator()(const UnprocessedVertex& left, const UnprocessedVertex& right) {
-        return left.score > right.score;
-    }
-};
-
-using UnprocessedVerticesHeap = std::priority_queue<UnprocessedVertex, std::vector<UnprocessedVertex>, UnprocessedVertexComparator>;
 
 class Dijkstra {
 
@@ -35,7 +27,7 @@ private:
     int start_vertex;
     std::map<int, bool> reachable;
     std::map<int, int> shortest_paths;
-    UnprocessedVerticesHeap unprocessed_vertices;
+    UniqueValuedHeap<UnprocessedVertex> unprocessed_vertices;
 
     void updateHeap(int extracted_v);
     int computeDijskatraGreedyScore(int v);

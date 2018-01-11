@@ -1,7 +1,12 @@
 #include "Dijkstra.h"
-#include "WeightedDigraph.h"
 #include "printutils.h"
-#include "Heap.h"
+#include <queue>
+
+struct UnprocessedVertexComparator {
+    bool operator()(const UnprocessedVertex& left, const UnprocessedVertex& right) {
+        return left.score > right.score;
+    }
+};
 
 int main() {
 

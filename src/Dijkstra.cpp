@@ -2,7 +2,10 @@
 #include <queue>
 #include <climits>
 
-Dijkstra::Dijkstra(WeightedDigraph* g, int startVertex) : graph(g), start_vertex(startVertex) {
+Dijkstra::Dijkstra(WeightedDigraph* g, int startVertex) :
+        graph(g),
+        start_vertex(startVertex),
+        unprocessed_vertices([](UnprocessedVertex a, UnprocessedVertex b){ return a.score <= b.score; }) {
 
     if (!g->hasVertex(startVertex)) {
         throw std::invalid_argument("Non-existing start vertex provided");
@@ -18,31 +21,34 @@ Dijkstra::Dijkstra(WeightedDigraph* g, int startVertex) : graph(g), start_vertex
 
     this->shortest_paths[this->start_vertex] = 0;
 
-    // Initialize the priority queue of unprocessed vertices
+    // Include all the unreachable vertices as processed with INT_MAX
 
-    std::set<int> adj_to_start;
-    for (const auto& adj_vertex : this->graph->getListofAdjacentVertices(this->start_vertex)) {
-
-        adj_to_start.insert(adj_vertex.w);
-
-        UnprocessedVertex upv{
-                adj_vertex.w,
-                this->graph->getWeight(adj_vertex.edgeIndex)
-        };
-
-        this->unprocessed_vertices.push(upv);
+    for (const auto& reach : this->reachable) {
+        int v = reach.first;
+        bool not_reachable = !reach.second;
+        if (not_reachable) {
+            this->shortest_paths[v] = INT_MAX;
+        }
     }
+
+    // Initialize the heap of unprocessed vertices
 
     for (auto v : this->graph->getVerticesVector()) {
 
-        if (adj_to_start.find(v) == adj_to_start.end()) {
+        if (!this->vertexIsProcessed(v)) {
 
-            UnprocessedVertex unreachable_upv{ v, INT_MAX };
-            this->unprocessed_vertices.push(unreachable_upv);
+            UnprocessedVertex upv{
+                    v,
+                    this->graph->getWeight(v)
+            };
+
+            this->unprocessed_vertices.insert(upv);
 
         }
 
     }
+
+
 
 }
 
@@ -54,9 +60,9 @@ void Dijkstra::computeShortestPaths() {
 
 void Dijkstra::updateHeap(int extracted_v) {
 
-    for (const auto& adj_edge : this->graph->getListofAdjacentVertices(extracted_v)) {
+    for (const auto& adj_vertex : this->graph->getListofAdjacentVertices(extracted_v)) {
 
-        int w = adj_edge.w;
+        int w = adj_vertex.w;
 
         if (!this->vertexIsProcessed(w)) {
 
@@ -84,3 +90,5 @@ bool Dijkstra::vertexIsProcessed(int v) {
     return false;
 
 }
+
+template class UniqueValuedHeap<UnprocessedVertex>;
