@@ -12,10 +12,10 @@ find_package(Boost REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 include_directories("include")
 
-file(GLOB HEADERS "include/*.h" "include/*.hpp")
-file(GLOB SRC_LIB "src/*.c" "src/*.cpp")
-file(GLOB SRC_APP "src_app/*.c" "src_app/*.cpp")
-file(GLOB SRC_SPIKE "spikes/*.c" "spikes/*.cpp")
+file(GLOB HEADERS "include/*.h")
+file(GLOB SRC_LIB "src/*.cpp")
+file(GLOB SRC_APP "src_app/*.cpp")
+file(GLOB SRC_SPIKE "spikes/*.cpp")
 
 add_library(StanAlg STATIC ${SRC_LIB} ${HEADERS})
 
@@ -32,10 +32,6 @@ foreach(source_file_full ${SRC_SPIKE})
   add_executable(${appname} "spikes/${source_file}" ${HEADERS})
   target_link_libraries(${appname} StanAlg ${Boost_LIBRARIES})
 endforeach()
-
-# How it was before:
-# add_executable(invcount "${SRC_APP_DIR}/invcount.cpp" ${HEADERS})
-# target_link_libraries(invcount StanAlg ${Boost_LIBRARIES})
 
 #install(TARGETS StanAlg DESTINATION lib)
 #install(TARGETS invcount DESTINATION bin)
