@@ -4,8 +4,7 @@
 
 Dijkstra::Dijkstra(WeightedDigraph* g, int startVertex) :
         graph(g),
-        start_vertex(startVertex),
-        unprocessed_vertices([](UnprocessedVertex a, UnprocessedVertex b){ return a.score <= b.score; }) {
+        start_vertex(startVertex) {
 
     if (!g->hasVertex(startVertex)) {
         throw std::invalid_argument("Non-existing start vertex provided");
@@ -37,12 +36,7 @@ Dijkstra::Dijkstra(WeightedDigraph* g, int startVertex) :
 
         if (!this->vertexIsProcessed(v)) {
 
-            UnprocessedVertex upv{
-                    v,
-                    this->graph->getWeight(v)
-            };
-
-            this->unprocessed_vertices.insert(upv);
+            this->unprocessed_vertices.insert(this->graph->getWeight(v), v);
 
         }
 
@@ -90,5 +84,3 @@ bool Dijkstra::vertexIsProcessed(int v) {
     return false;
 
 }
-
-template class UniqueValuedHeap<UnprocessedVertex>;

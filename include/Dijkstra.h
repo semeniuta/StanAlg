@@ -27,7 +27,7 @@ private:
     int start_vertex;
     std::map<int, bool> reachable;
     std::map<int, int> shortest_paths;
-    UniqueValuedHeap<UnprocessedVertex> unprocessed_vertices;
+    UniqueValuedHeap<int, int> unprocessed_vertices;
 
     void updateHeap(int extracted_v);
     int computeDijskatraGreedyScore(int v);

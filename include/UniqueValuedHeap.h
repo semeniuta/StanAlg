@@ -4,15 +4,15 @@
 #include <map>
 #include "Heap.h"
 
-template <typename T>
-class UniqueValuedHeap : public Heap<T> {
+template <typename KeyT, typename ValueT>
+class UniqueValuedHeap : public Heap<KeyT, ValueT> {
 
 public:
 
     UniqueValuedHeap() = default;
-    explicit UniqueValuedHeap(std::function<bool(T,T)> compare_func) : Heap<T>(compare_func) {}
-    unsigned long insert(T val) override;
-    long findIndex(T val) override;
+    explicit UniqueValuedHeap(std::function<bool(KeyT,KeyT)> compare_func) : Heap<KeyT, ValueT>(compare_func) {}
+    unsigned long insert(KeyT key, ValueT value) override;
+    long findIndex(ValueT value) override;
     void printIndices();
 
 protected:
@@ -21,7 +21,7 @@ protected:
 
 private:
 
-    std::map<T, unsigned long> indices;
+    std::map<ValueT, unsigned long> indices;
 
 
 };

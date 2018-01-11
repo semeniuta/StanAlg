@@ -1,24 +1,24 @@
 #include "UniqueValuedHeap.h"
 #include <iostream>
 
-template <typename T>
-unsigned long UniqueValuedHeap<T>::insert(T val) {
+template <typename KeyT, typename ValueT>
+unsigned long UniqueValuedHeap<KeyT, ValueT>::insert(KeyT key, ValueT value) {
 
-    auto itr = this->indices.find(val);
+    auto itr = this->indices.find(value);
     if (itr != this->indices.end()) return itr->second;
 
-    auto idx = Heap<T>::insert(val);
-    this->indices[val] = idx;
+    auto idx = Heap<KeyT, ValueT>::insert(key, value);
+    this->indices[value] = idx;
 
     return idx;
 
 }
 
 
-template <typename T>
-long UniqueValuedHeap<T>::findIndex(T val) {
+template <typename KeyT, typename ValueT>
+long UniqueValuedHeap<KeyT, ValueT>::findIndex(ValueT value) {
 
-    auto itr = this->indices.find(val);
+    auto itr = this->indices.find(value);
 
     if (itr != this->indices.end()) {
         return itr->second;
@@ -28,20 +28,20 @@ long UniqueValuedHeap<T>::findIndex(T val) {
 
 }
 
-template <typename T>
-void UniqueValuedHeap<T>::swap(unsigned long i, unsigned long j) {
+template <typename KeyT, typename ValueT>
+void UniqueValuedHeap<KeyT, ValueT>::swap(unsigned long i, unsigned long j) {
 
-    T a = this->data[i];
-    T b = this->data[j];;
+    HeapEntry<KeyT, ValueT> a = this->entries[i];
+    HeapEntry<KeyT, ValueT> b = this->entries[j];
 
-    Heap<T>::swap(i, j);
+    Heap<KeyT, ValueT>::swap(i, j);
 
-    this->indices[a] = j;
-    this->indices[b] = i;
+    this->indices[a.value] = j;
+    this->indices[b.value] = i;
 }
 
-template <typename T>
-void UniqueValuedHeap<T>::printIndices() {
+template <typename KeyT, typename ValueT>
+void UniqueValuedHeap<KeyT, ValueT>::printIndices() {
 
     if (this->heap_size == 0)
         return;
@@ -49,12 +49,12 @@ void UniqueValuedHeap<T>::printIndices() {
     std::cout << "{";
 
     for (const auto& entry : this->indices) {
-        T val = entry.first;
-        T idx = entry.second;
-        std::cout << val << "->" << idx << ", ";
+        auto value = entry.first;
+        auto idx = entry.second;
+        std::cout << value << "->" << idx << ", ";
     }
     std::cout << "}\n";
 
 }
 
-template class UniqueValuedHeap<int>;
+template class UniqueValuedHeap<int, int>;

@@ -5,25 +5,31 @@
 #include <map>
 #include <functional>
 
-template <typename T>
+template <typename KeyT, typename ValueT>
+struct HeapEntry {
+    KeyT key;
+    ValueT value;
+};
+
+template <typename KeyT, typename ValueT>
 class Heap {
 
 public:
 
     Heap();
-    explicit Heap(std::function<bool(T,T)> compare_func);
-    virtual unsigned long insert(T val);
-    virtual long findIndex(T val);
-    T pop();
-    T at(unsigned long index);
+    explicit Heap(std::function<bool(KeyT,KeyT)> compare_func);
+    virtual unsigned long insert(KeyT key, ValueT value);
+    HeapEntry<KeyT, ValueT> pop();
+    HeapEntry<KeyT, ValueT> at(unsigned long index);
+    virtual long findIndex(ValueT value);
     void remove(unsigned long index);
     void printData();
     unsigned long size() { return heap_size; }
 
 protected:
 
-    std::vector<T> data;
-    std::function<bool(T,T)> compare;
+    std::vector<HeapEntry<KeyT, ValueT>> entries;
+    std::function<bool(KeyT,KeyT)> compare;
     unsigned long heap_size;
 
     virtual void swap(unsigned long i, unsigned long j);
