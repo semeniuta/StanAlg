@@ -2,8 +2,8 @@
 #define DIJKSTRA_H
 
 #include "WeightedDigraph.h"
-#include "UniqueValuedHeap.h"
 #include "DFS.h"
+#include "Heap.h"
 #include <set>
 
 const int NO_PATH_WEIGHT = 1000000;

@@ -1,6 +1,5 @@
 #include <iostream>
 #include "Heap.h"
-#include "UniqueValuedHeap.h"
 
 int main() {
     Heap<int, int> my_heap;
