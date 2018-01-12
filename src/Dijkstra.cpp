@@ -62,10 +62,6 @@ Dijkstra::Dijkstra(WeightedDigraph* g, int startVertex) :
 
     }
 
-    std::cout << "Initial:\n";
-    std::cout << "size=" << this->unprocessed_vertices.size() << "\n";
-    this->unprocessed_vertices.printData();
-
 }
 
 int Dijkstra::getShortestPath(int i) {
@@ -79,10 +75,6 @@ void Dijkstra::computeShortestPaths() {
     while (!this->unprocessed_vertices.empty()) {
 
         HeapEntry<int, int> extracted = this->unprocessed_vertices.pop();
-
-        std::cout << "After extracting " << extracted.value <<  ":\n";
-        std::cout << "size=" << this->unprocessed_vertices.size() << "\n";
-        this->unprocessed_vertices.printData();
 
         int v = extracted.value;
         int src = this->unprocessed_vertices_src[v];
@@ -106,8 +98,6 @@ void Dijkstra::updateHeap(int extracted_v) {
 
         if (!this->vertexIsProcessed(w)) {
 
-            std::cout << "Fixing the greedy score of " << extracted_v << "->" << w << "\n";
-
             long w_idx = this->unprocessed_vertices.findIndex(w);
 
             if (w_idx >= 0) {
@@ -116,20 +106,10 @@ void Dijkstra::updateHeap(int extracted_v) {
 
                 int dist_option_1 = this->shortest_paths[extracted_v] + this->graph->getWeight(extracted_v, w);
                 int dist_option_2 = removed.key;
-                int new_distance = (dist_option_1 < dist_option_2) ? dist_option_1 : dist_option_2;
-
-                int new_greedy_score = new_distance;
-
-                std::cout << "Removing " << w << ":\n";
-                std::cout << "size=" << this->unprocessed_vertices.size() << "\n";
-                this->unprocessed_vertices.printData();
+                int new_greedy_score = (dist_option_1 < dist_option_2) ? dist_option_1 : dist_option_2;
 
                 this->unprocessed_vertices.insert(new_greedy_score, w);
                 this->unprocessed_vertices_src[w] = extracted_v;
-
-                std::cout << "Inserting " << w << " back with the new greedy score of " << new_greedy_score << ":\n";
-                std::cout << "size=" << this->unprocessed_vertices.size() << "\n";
-                this->unprocessed_vertices.printData();
 
             } else {
                 throw std::runtime_error("Vertex is not processed, but not found in the heap of unprocessed vertices");
