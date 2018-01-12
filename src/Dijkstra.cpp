@@ -40,9 +40,9 @@ Dijkstra::Dijkstra(WeightedDigraph* g, int startVertex) :
         adj_to_start.insert(adj_vertex.w);
 
         int greedy_score = this->graph->getWeight(adj_vertex.edgeIndex);
-        UnprocessedVertexData vertex_data{ adj_vertex.w, this->start_vertex };
 
-        this->unprocessed_vertices.insert(greedy_score, vertex_data);
+        this->unprocessed_vertices.insert(greedy_score, adj_vertex.w);
+        this->unprocessed_vertices_src[adj_vertex.w] = this->start_vertex;
     }
 
     // Fill the heap of unprocessed vertices with the vertices NOT adjacent to start
@@ -55,8 +55,7 @@ Dijkstra::Dijkstra(WeightedDigraph* g, int startVertex) :
 
         if (not_start && not_adjacent_to_start && not_processed) {
 
-            UnprocessedVertexData vertex_data{ v, -1 };
-            this->unprocessed_vertices.insert(NO_PATH_WEIGHT, vertex_data);
+            this->unprocessed_vertices.insert(NO_PATH_WEIGHT, v);
 
         }
 
@@ -68,12 +67,14 @@ void Dijkstra::computeShortestPaths() {
 
     while (!this->unprocessed_vertices.empty()) {
 
-        HeapEntry<int, UnprocessedVertexData> extracted = this->unprocessed_vertices.pop();
+        HeapEntry<int, int> extracted = this->unprocessed_vertices.pop();
 
-        int distance = this->shortest_paths[extracted.value.src] + extracted.key;
-        this->shortest_paths[extracted.value.v] = distance;
+        int v = extracted.value;
+        int src = this->unprocessed_vertices_src[v];
+        int distance = this->shortest_paths[src] + extracted.key;
+        this->shortest_paths[v] = distance;
 
-        //this->updateHeap()
+        this->updateHeap(v);
 
     }
 
@@ -87,18 +88,21 @@ void Dijkstra::updateHeap(int extracted_v) {
 
         if (!this->vertexIsProcessed(w)) {
 
-            // TODO
-            // Delete w from this->unprocessed_vertices
-            // and recompute score
+            long w_idx = this->unprocessed_vertices.findIndex(w);
+
+            if (w_idx > 0) {
+
+                this->unprocessed_vertices.remove( (unsigned long)w_idx );
+                int new_greedy_score = this->graph->getWeight(adj_vertex.edgeIndex);
+
+                this->unprocessed_vertices.insert(new_greedy_score, w);
+                this->unprocessed_vertices_src[w] = extracted_v;
+
+            }
+
         }
 
     }
-
-}
-
-int Dijkstra::computeDijskatraGreedyScore(int v) {
-
-    // TODO
 
 }
 
@@ -111,5 +115,3 @@ bool Dijkstra::vertexIsProcessed(int v) {
     return false;
 
 }
-
-template class UniqueValuedHeap<int, UnprocessedVertexData>;
