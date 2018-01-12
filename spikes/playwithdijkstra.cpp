@@ -2,6 +2,11 @@
 #include "printutils.h"
 #include <queue>
 
+struct UnprocessedVertex {
+    int index;
+    int score;
+};
+
 struct UnprocessedVertexComparator {
     bool operator()(const UnprocessedVertex& left, const UnprocessedVertex& right) {
         return left.score > right.score;

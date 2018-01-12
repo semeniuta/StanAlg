@@ -1,4 +1,5 @@
 #include "Dijkstra.h"
+#include "Heap.h"
 #include <queue>
 #include <climits>
 
@@ -30,25 +31,51 @@ Dijkstra::Dijkstra(WeightedDigraph* g, int startVertex) :
         }
     }
 
-    // Initialize the heap of unprocessed vertices
+    // Fill the heap of unprocessed vertices with the vertices adjacent to start
+
+    std::set<int> adj_to_start;
+
+    for (const auto& adj_vertex : this->graph->getListofAdjacentVertices(this->start_vertex)) {
+
+        adj_to_start.insert(adj_vertex.w);
+
+        int greedy_score = this->graph->getWeight(adj_vertex.edgeIndex);
+        UnprocessedVertexData vertex_data{ adj_vertex.w, this->start_vertex };
+
+        this->unprocessed_vertices.insert(greedy_score, vertex_data);
+    }
+
+    // Fill the heap of unprocessed vertices with the vertices NOT adjacent to start
 
     for (auto v : this->graph->getVerticesVector()) {
 
-        if (!this->vertexIsProcessed(v)) {
+        bool not_adjacent_to_start = (adj_to_start.find(v) == adj_to_start.end());
+        bool not_start = (v != this->start_vertex);
+        bool not_processed = (!this->vertexIsProcessed(v));
 
-            this->unprocessed_vertices.insert(this->graph->getWeight(v), v);
+        if (not_start && not_adjacent_to_start && not_processed) {
+
+            UnprocessedVertexData vertex_data{ v, -1 };
+            this->unprocessed_vertices.insert(NO_PATH_WEIGHT, vertex_data);
 
         }
 
     }
 
-
-
 }
 
 void Dijkstra::computeShortestPaths() {
 
-    // TODO
+    while (!this->unprocessed_vertices.empty()) {
+
+        HeapEntry<int, UnprocessedVertexData> extracted = this->unprocessed_vertices.pop();
+
+        int distance = this->shortest_paths[extracted.value.src] + extracted.key;
+        this->shortest_paths[extracted.value.v] = distance;
+
+        //this->updateHeap()
+
+    }
 
 }
 
@@ -84,3 +111,5 @@ bool Dijkstra::vertexIsProcessed(int v) {
     return false;
 
 }
+
+template class UniqueValuedHeap<int, UnprocessedVertexData>;

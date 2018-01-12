@@ -8,9 +8,9 @@
 
 const int NO_PATH_WEIGHT = 1000000;
 
-struct UnprocessedVertex {
-    int index;
-    int score;
+struct UnprocessedVertexData {
+    int v;
+    int src;
 };
 
 class Dijkstra {
@@ -27,7 +27,7 @@ private:
     int start_vertex;
     std::map<int, bool> reachable;
     std::map<int, int> shortest_paths;
-    UniqueValuedHeap<int, int> unprocessed_vertices;
+    UniqueValuedHeap<int, UnprocessedVertexData> unprocessed_vertices;
 
     void updateHeap(int extracted_v);
     int computeDijskatraGreedyScore(int v);

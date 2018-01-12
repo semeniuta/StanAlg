@@ -25,6 +25,7 @@ public:
     void remove(unsigned long index);
     void printData();
     unsigned long size() { return heap_size; }
+    bool empty() { return (heap_size == 0); };
 
 protected:
 
