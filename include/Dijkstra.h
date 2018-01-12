@@ -15,6 +15,7 @@ public:
     Dijkstra() = delete;
     Dijkstra(WeightedDigraph* g, int startVertex);
     void computeShortestPaths();
+    int getShortestPath(int i);
 
 private:
 
@@ -22,8 +23,9 @@ private:
     int start_vertex;
     std::map<int, bool> reachable;
     std::map<int, int> shortest_paths;
-    UniqueValuedHeap<int, int> unprocessed_vertices;
+    Heap<int, int> unprocessed_vertices;
     std::map<int, int> unprocessed_vertices_src;
+    bool done_computing;
 
     void updateHeap(int extracted_v);
     bool vertexIsProcessed(int v);

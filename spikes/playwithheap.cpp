@@ -3,13 +3,11 @@
 #include "UniqueValuedHeap.h"
 
 int main() {
-    UniqueValuedHeap<int, int> my_heap;
-    //Heap<int> my_heap;
+    Heap<int, int> my_heap;
 
     for (int x : std::vector<int>{ 11, 9, 13, 12, 4, 5, 8, 7, 6, 3, 14 }) {
         my_heap.insert(x, x);
         my_heap.printData();
-        my_heap.printIndices();
     }
 
     std::cout << "\n# Removing element by value demo\n";

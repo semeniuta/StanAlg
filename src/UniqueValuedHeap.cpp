@@ -14,6 +14,18 @@ unsigned long UniqueValuedHeap<KeyT, ValueT>::insert(KeyT key, ValueT value) {
 
 }
 
+template <typename KeyT, typename ValueT>
+HeapEntry<KeyT, ValueT> UniqueValuedHeap<KeyT, ValueT>::pop() {
+
+    HeapEntry<KeyT, ValueT> popped_entry = Heap<KeyT, ValueT>::pop();
+
+    this->indices.erase(popped_entry.value);
+
+    return popped_entry;
+
+}
+
+
 
 template <typename KeyT, typename ValueT>
 long UniqueValuedHeap<KeyT, ValueT>::findIndex(ValueT value) {
@@ -25,6 +37,17 @@ long UniqueValuedHeap<KeyT, ValueT>::findIndex(ValueT value) {
     }
 
     return -1;
+
+}
+
+template <typename KeyT, typename ValueT>
+HeapEntry<KeyT, ValueT> UniqueValuedHeap<KeyT, ValueT>::remove(unsigned long index) {
+
+    HeapEntry<KeyT, ValueT> removed_entry = Heap<KeyT, ValueT>::remove(index);
+
+    this->indices.erase(removed_entry.value);
+
+    return removed_entry;
 
 }
 

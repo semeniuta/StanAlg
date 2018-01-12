@@ -5,7 +5,8 @@
 
 Dijkstra::Dijkstra(WeightedDigraph* g, int startVertex) :
         graph(g),
-        start_vertex(startVertex) {
+        start_vertex(startVertex),
+        done_computing(false) {
 
     if (!g->hasVertex(startVertex)) {
         throw std::invalid_argument("Non-existing start vertex provided");
@@ -39,7 +40,7 @@ Dijkstra::Dijkstra(WeightedDigraph* g, int startVertex) :
 
         adj_to_start.insert(adj_vertex.w);
 
-        int greedy_score = this->graph->getWeight(adj_vertex.edgeIndex);
+        int greedy_score = this->graph->getWeight(this->start_vertex, adj_vertex.w);
 
         this->unprocessed_vertices.insert(greedy_score, adj_vertex.w);
         this->unprocessed_vertices_src[adj_vertex.w] = this->start_vertex;
@@ -61,6 +62,16 @@ Dijkstra::Dijkstra(WeightedDigraph* g, int startVertex) :
 
     }
 
+    std::cout << "Initial:\n";
+    std::cout << "size=" << this->unprocessed_vertices.size() << "\n";
+    this->unprocessed_vertices.printData();
+
+}
+
+int Dijkstra::getShortestPath(int i) {
+
+    return this->shortest_paths[i];
+
 }
 
 void Dijkstra::computeShortestPaths() {
@@ -69,14 +80,21 @@ void Dijkstra::computeShortestPaths() {
 
         HeapEntry<int, int> extracted = this->unprocessed_vertices.pop();
 
+        std::cout << "After extracting " << extracted.value <<  ":\n";
+        std::cout << "size=" << this->unprocessed_vertices.size() << "\n";
+        this->unprocessed_vertices.printData();
+
         int v = extracted.value;
         int src = this->unprocessed_vertices_src[v];
-        int distance = this->shortest_paths[src] + extracted.key;
+
+        int distance = extracted.key;
         this->shortest_paths[v] = distance;
 
         this->updateHeap(v);
 
     }
+
+    this->done_computing = true;
 
 }
 
@@ -88,16 +106,33 @@ void Dijkstra::updateHeap(int extracted_v) {
 
         if (!this->vertexIsProcessed(w)) {
 
+            std::cout << "Fixing the greedy score of " << extracted_v << "->" << w << "\n";
+
             long w_idx = this->unprocessed_vertices.findIndex(w);
 
-            if (w_idx > 0) {
+            if (w_idx >= 0) {
 
-                this->unprocessed_vertices.remove( (unsigned long)w_idx );
-                int new_greedy_score = this->graph->getWeight(adj_vertex.edgeIndex);
+                HeapEntry<int, int> removed = this->unprocessed_vertices.remove( (unsigned long)w_idx );
+
+                int dist_option_1 = this->shortest_paths[extracted_v] + this->graph->getWeight(extracted_v, w);
+                int dist_option_2 = removed.key;
+                int new_distance = (dist_option_1 < dist_option_2) ? dist_option_1 : dist_option_2;
+
+                int new_greedy_score = new_distance;
+
+                std::cout << "Removing " << w << ":\n";
+                std::cout << "size=" << this->unprocessed_vertices.size() << "\n";
+                this->unprocessed_vertices.printData();
 
                 this->unprocessed_vertices.insert(new_greedy_score, w);
                 this->unprocessed_vertices_src[w] = extracted_v;
 
+                std::cout << "Inserting " << w << " back with the new greedy score of " << new_greedy_score << ":\n";
+                std::cout << "size=" << this->unprocessed_vertices.size() << "\n";
+                this->unprocessed_vertices.printData();
+
+            } else {
+                throw std::runtime_error("Vertex is not processed, but not found in the heap of unprocessed vertices");
             }
 
         }

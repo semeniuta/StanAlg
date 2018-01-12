@@ -19,10 +19,10 @@ public:
     Heap();
     explicit Heap(std::function<bool(KeyT,KeyT)> compare_func);
     virtual unsigned long insert(KeyT key, ValueT value);
-    HeapEntry<KeyT, ValueT> pop();
+    virtual HeapEntry<KeyT, ValueT> pop();
     HeapEntry<KeyT, ValueT> at(unsigned long index);
     virtual long findIndex(ValueT value);
-    void remove(unsigned long index);
+    virtual HeapEntry<KeyT, ValueT> remove(unsigned long index);
     void printData();
     unsigned long size() { return heap_size; }
     bool empty() { return (heap_size == 0); };

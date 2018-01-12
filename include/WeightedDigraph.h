@@ -11,10 +11,10 @@ class WeightedDigraph : public Digraph {
 public:
     int addEdge(int v, int w) override;
     int addEdge(int v, int w, int weight);
-    int getWeight(int edgeIndex);
+    int getWeight(int v, int w);
 
 private:
-    std::map<int, int> edge_weights;
+    std::map<std::pair<int, int>, int> edge_weights;
 
 };
 

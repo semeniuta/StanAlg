@@ -27,7 +27,7 @@ unsigned long Heap<KeyT, ValueT>::insert(KeyT key, ValueT value) {
 
     this->heap_size++;
 
-    return this->bubbleUp(this->entries.size() - 1);
+    return this->bubbleUp(this->heap_size - 1);
 
 }
 
@@ -68,16 +68,21 @@ HeapEntry<KeyT, ValueT> Heap<KeyT, ValueT>::at(unsigned long index) {
 }
 
 template <typename KeyT, typename ValueT>
-void Heap<KeyT, ValueT>::remove(unsigned long index) {
+HeapEntry<KeyT, ValueT> Heap<KeyT, ValueT>::remove(unsigned long index) {
 
     if (index >= this->heap_size) {
         throw std::invalid_argument("Wrong index provided");
     }
 
+    HeapEntry<KeyT, ValueT> result = this->entries[index];
+
     this->entries[index] = this->entries[this->heap_size - 1];
     this->heap_size--;
 
     this->bubbleDown(index);
+
+    return result;
+
 }
 
 template <typename KeyT, typename ValueT>
@@ -101,7 +106,9 @@ unsigned long Heap<KeyT, ValueT>::bubbleUp(unsigned long index) {
 template <typename KeyT, typename ValueT>
 unsigned long Heap<KeyT, ValueT>::bubbleDown(unsigned long index) {
 
-    if (index == this->heap_size-1) return index;
+    if (index == this->heap_size-1) {
+        return index;
+    }
 
     auto child_index_1 = this->firstChild(index);
     auto child_index_2 = child_index_1 + 1;
@@ -112,7 +119,9 @@ unsigned long Heap<KeyT, ValueT>::bubbleDown(unsigned long index) {
     auto child_2 = (child_index_2 < this->heap_size) ? this->entries[child_index_2] : my_entry;
 
     bool in_place = (this->compare(my_entry.key, child_1.key) && this->compare(my_entry.key, child_2.key));
-    if (in_place) return index;
+    if (in_place) {
+        return index;
+    }
 
     unsigned long smaller_child_index;
     smaller_child_index = (this->entries[child_index_1].key < this->entries[child_index_2].key) ? child_index_1 : child_index_2;

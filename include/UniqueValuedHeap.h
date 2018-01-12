@@ -12,7 +12,9 @@ public:
     UniqueValuedHeap() = default;
     explicit UniqueValuedHeap(std::function<bool(KeyT,KeyT)> compare_func) : Heap<KeyT, ValueT>(compare_func) {}
     unsigned long insert(KeyT key, ValueT value) override;
+    HeapEntry<KeyT, ValueT> pop() override;
     long findIndex(ValueT value) override;
+    HeapEntry<KeyT, ValueT> remove(unsigned long index) override;
     void printIndices();
 
 protected:
