@@ -60,3 +60,43 @@ void readDigraphFromFile(FileReader *fr, Digraph *g) {
     }
 
 }
+
+void readWeightedGraphFromFile(FileReader *fr, WeightedDigraph *g) {
+
+    string current_str;
+    int current_vertex;
+    int current_adjacent_vertex;
+    int current_adjacent_vertex_weight;
+    while (!fr->eof()) {
+
+        current_str = fr->readLine();
+        if (current_str.empty()) {
+            break;
+        }
+
+        std::istringstream iss{current_str};
+        std::string token;
+
+        std::getline(iss, token, '\t');
+        current_vertex = std::stoi(token);
+
+        while (std::getline(iss, token, '\t')) {
+
+            if (token != "\r") {
+
+                std::istringstream token_ss{token};
+                std::string num_token;
+                std::getline(token_ss, num_token, ',');
+                current_adjacent_vertex = std::stoi(num_token);
+                std::getline(token_ss, num_token);
+                current_adjacent_vertex_weight = std::stoi(num_token);
+
+                g->addEdge(current_vertex, current_adjacent_vertex, current_adjacent_vertex_weight);
+            }
+        }
+
+
+
+    }
+
+}
