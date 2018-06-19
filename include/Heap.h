@@ -17,7 +17,7 @@ class Heap {
 
 public:
 
-    Heap() : compare( [](KeyT a, KeyT b){ return a <= b; } ), heap_size(0) { }
+    Heap() : compare{ std::less_equal<>() }, heap_size(0) { }
 
     explicit Heap(std::function<bool(KeyT,KeyT)> compare_func) : compare(compare_func), heap_size(0) { }
 
@@ -54,6 +54,15 @@ public:
 
         return result;
 
+    }
+
+    KeyT topKey() {
+
+        if (this->empty()) {
+            throw std::runtime_error("Heap is empty");
+        }
+
+        return this->entries[0].key;
     }
 
     HeapEntry<KeyT, ValueT> at(unsigned long index) {
