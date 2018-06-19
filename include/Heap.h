@@ -161,11 +161,13 @@ private:
             return index;
         }
 
-        unsigned long smaller_child_index;
-        smaller_child_index = (this->entries[child_index_1].key < this->entries[child_index_2].key) ? child_index_1 : child_index_2;
+        unsigned long target_child_index;
+        target_child_index = this->compare(
+                this->entries[child_index_1].key, this->entries[child_index_2].key
+        ) ? child_index_1 : child_index_2;
 
-        this->swap(index, smaller_child_index);
-        return this->bubbleDown(smaller_child_index);
+        this->swap(index, target_child_index);
+        return this->bubbleDown(target_child_index);
 
     }
 
