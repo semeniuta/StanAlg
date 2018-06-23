@@ -1,5 +1,20 @@
+/*
+ * Sort a sequence of integers using QuickSort algorithm.
+ * The program is supplied with a path to a text file where
+ * each line contains a single integer. To select the choose
+ * pivot rule, one of the following flags is used:
+ * --first, --median, --last
+ *
+ * Usage examples:
+ * ./quicksort -f ../../data/QuickSort.txt --first
+ * ./quicksort -f ../../data/QuickSort.txt --median
+ * ./quicksort -f ../../data/QuickSort.txt --last
+ *
+ */
+
 #include <iostream>
 #include <vector>
+#include <string>
 #include "QuickSort.h"
 #include "FileReader.h"
 #include "argtools.h"
@@ -23,8 +38,8 @@ int main(int argc, char *argv[]) {
             int current_number;
             while (!fr.eof()) {
                 current_str = fr.readLine();
-                if (current_str.length() != 0) {
-                    current_number = atoi(current_str.c_str());
+                if (!current_str.empty()) {
+                    current_number = std::stoi(current_str);
                     numbers.push_back(current_number);
                 }
             }

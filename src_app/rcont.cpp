@@ -1,3 +1,16 @@
+/*
+ * Compute size of min cut of an undirected graph
+ * using the randomized contraction algorithm.
+ * The graph is specified in a text file in the adjacency list form:
+ * each line contains a number of integers separated by whitespaces;
+ * the first integer specifies the target vertex index, and the rest
+ * correspond to the vertices the target is adjacent to.
+ *
+ * Usage example:
+ * ./rcont -f ../../data/kargerMinCut.txt
+ *
+ */
+
 #include <iostream>
 #include <vector>
 #include "Graph.h"

@@ -1,7 +1,7 @@
 /*
  * Find shortest path in a weighted digraph using the Dijkstra algorithm
  *
- * Example of usage:
+ * Usage examples:
  * ./dijkstra -f ../../data/dijkstraData.txt -s 1
  * ./dijkstra -f ../../data/dijkstraData.txt -s 1 -v 7 37 59 82 99 115 133 165 188 197
  *

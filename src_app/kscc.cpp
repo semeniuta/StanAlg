@@ -1,3 +1,16 @@
+/*
+ * Compute strongly connected components in a directed graph
+ * with the Kosaraju's algorithm.
+ * The graph is specified in a text file, where each row,
+ * containing two integers separated by whitespace, represents
+ * a directed edge: the first number is the index of the tail
+ * vertex, and the second number is the index of the head vertex.
+ *
+ * Usage example:
+ * ./kscc -f ../../data/SCC.txt
+ *
+ */
+
 #include <iostream>
 #include <algorithm>
 #include <functional>
@@ -7,7 +20,6 @@
 #include "FileReader.h"
 #include "Digraph.h"
 #include "Kosaraju.h"
-
 
 int main(int argc, char *argv[]) {
 

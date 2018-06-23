@@ -1,3 +1,13 @@
+/*
+ * Count number of inversions in a sequence of integers.
+ * The program is supplied with a path to a text file where
+ * each line contains a single integer.
+ *
+ * Usage example:
+ * ./invcount -f ../../data/IntegerArray.txt
+ *
+ */
+
 #include <iostream>
 #include <vector>
 #include <string>
